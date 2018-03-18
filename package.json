@@ -21,7 +21,7 @@
   "author": "OGNovuh",
   "license": "Apache 2.0",
   "dependencies": {
-    "discord.js": "^11.3.0",
+    "discord.js": "^11.3.2",
     "enmap": "^2.0.1",
     "enmap-level": "^2.0.0",
     "fs": "0.0.1-security",
