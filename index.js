@@ -11,15 +11,19 @@ const klaw = require('klaw');
 const path = require('path');
 const fs = require('fs');
 
+const EventStore = require('./stores/EventStore.js');
+
 // Create the base class, Aetherya, extending the Discord Client, and attach options to this.client.
 class Aetherya extends Client {
   constructor(options) {
     super(options);
 
     this.config = require('./config.js');
-    
+
     this.commands = new Enmap();
     this.aliases = new Enmap();
+
+    this.events = new EventStore(this);
 
     this.settings = new Enmap({ provider: new EnmapLevel({ name: 'settings'}) });
   }

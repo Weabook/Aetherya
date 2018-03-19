@@ -1,10 +1,9 @@
 // Declare the bot variable to use to get the version.
 const bot = require('../package.json');
 
-module.exports = class {
-  constructor(client) {
-    this.client = client;
-  }
+const Event = require('../structures/Event.js');
+
+module.exports = class extends Event {
 
   async run() {
 
@@ -22,8 +21,7 @@ module.exports = class {
     // Filter through the guilds to see if a guild was added while the bot was offline.
     // If so, create the guilds settings.
     this.client.guilds.filter(g => !this.client.settings.has(g.id)).forEach(g => this.client.settings.set(g.id, this.client.config.defaultSettings));
-    this.client.guilds.filter(g => !this.client.applications.has(g.id)).forEach(g => this.client.applications.set(g.id, this.client.config.defaultAppCount));
-
+    
     this.client.user.setActivity(`for ${this.client.users.size} astronauts`, { url: 'https://www.twitch.tv/aetherya_', type: 'STREAMING'});
   }
 };

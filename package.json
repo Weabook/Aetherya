@@ -26,10 +26,11 @@
     "enmap-level": "^2.0.0",
     "fs": "0.0.1-security",
     "fs-nextra": "^0.3.2",
-    "klaw": "^2.1.0",
-    "moment": "^2.19.0",
+    "klaw": "^2.1.1",
+    "moment": "^2.21.0",
     "moment-duration-format": "^1.3.0",
-    "snekfetch": "^3.5.2",
+    "ms": "^2.1.1",
+    "snekfetch": "^3.6.4",
     "twitch.tv-api": "^1.2.4"
   },
   "devDependencies": {
