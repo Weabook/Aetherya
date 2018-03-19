@@ -2,14 +2,12 @@
 const moment = require('moment');
 require('moment-duration-format');
 
-const Event = require('../structures/Event.js');
-
 // The MESSAGE event runs anytime a message is received
 // Note that due to the binding of client to every event, every event
 // goes `client, other, args` when this function is run.
-module.exports = class extends Event {
-  constructor(...args) {
-    super(...args);
+module.exports = class {
+  constructor(client) {
+    this.client = client;
   }
 
   async run(message) {
