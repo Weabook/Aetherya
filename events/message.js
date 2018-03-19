@@ -8,6 +8,9 @@ const Event = require('../structures/Event.js');
 // Note that due to the binding of client to every event, every event
 // goes `client, other, args` when this function is run.
 module.exports = class extends Event {
+  constructor(...args) {
+    super(...args);
+  }
 
   async run(message) {
     // It's good practice to ignore other bots. This also makes your bot ignore itself
