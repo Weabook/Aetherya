@@ -22,3 +22,5 @@ class Event {
     return this.client.events.load(this.file);
   }
 }
+
+module.exports = Event;
