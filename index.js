@@ -2,6 +2,7 @@
 if (process.version.slice(1).split('.')[1] < 5) throw new Error('Node 8.5.0 or higher is required. Node 8.9.4 is suggested. Update Node on your system.');
 
 // Declare dependencies.
+require('dotenv').config();
 const { Client } = require('discord.js');
 const { promisify } = require('util');
 const readdir = promisify(require('fs').readdir);

@@ -11,10 +11,17 @@ module.exports = class {
     // Wait 1 second to allow for the settings to load.
     await this.client.wait(1000);
 
+    this.client.appInfo = await this.client.fetchApplication();
+    setInterval( async () => {
+      this.client.appInfo = await this.client.fetchApplication();
+    }, 60000);
+
     // Delete Clyde from the bot's user cache.
     if (this.client.users.has('1')) {
       this.client.users.delete('1');
     }
+
+    require('../util/dashboard.js')(this.client);
 
     // Log that the bot has logged in.
     this.client.log('Log', `${this.client.user.tag}, ready to serve ${this.client.users.size} users in ${this.client.guilds.size} servers on version ${bot.version}.`, 'Ready!');
