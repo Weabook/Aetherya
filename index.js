@@ -139,7 +139,7 @@ const init = async () => {
   }
 
   // Login. Duh.
-  client.login(client.config.token);
+  client.login(process.env.TOKEN);
 };
 
 // Runs init. Actually logs the client in.

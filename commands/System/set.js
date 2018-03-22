@@ -15,7 +15,7 @@ class Set extends Command {
 
   async run(message, [action, key, ...value], level) {
 
-    const settings = message.settings;
+    const settings = this.client.settings.get(message.guild.id);
     const defaults = this.client.settings.get('default');
   
     if (action === 'edit') {
@@ -53,12 +53,13 @@ class Set extends Command {
       message.reply(`The value of ${key} is currently ${settings[key]}`);
       
     } else {
-      const array = [];
-      Object.entries(settings).forEach(([key, value]) => {
-        array.push(`${key}${' '.repeat(20 - key.length)}::  ${value}`); 
-      });
-      await message.channel.send(`= Current Guild Settings =
-${array.join('\n')}`, {code: 'asciidoc'});
+      //       const array = [];
+      //       Object.entries(settings).forEach(([key, value]) => {
+      //         array.push(`${key}${' '.repeat(20 - key.length)}::  ${value}`); 
+      //       });
+      //       await message.channel.send(`= Current Guild Settings =
+      // ${array.join('\n')}`, {code: 'asciidoc'});
+      await message.channel.send(`= Current Guild Settings =\n\n= Strings =\nprefix${' '.repeat(20 - 6)}::  ${settings.prefix}\n\n= Booleans =\njoinEnabled${' '.repeat(20 - 11)}::  ${settings.joinEnabled}\nleaveEnabled${' '.repeat(20 - 12)}::  ${settings.leaveEnabled}\neditEnabled${' '.repeat(20 - 11)}::  ${settings.editEnabled}\ndeleteEnabled${' '.repeat(20 - 13)}::  ${settings.deleteEnabled}\n\n= Channels =\nstreamChannel${' '.repeat(20 - 13)}::  ${settings.streamChannel}\nannounceChannel${' '.repeat(20 - 15)}::  ${settings.announceChannel}\nmodLogChannel${' '.repeat(20 - 13)}::  ${settings.modLogChannel}\npartnerLog${' '.repeat(20 - 10)}::  ${settings.partnerLog}\n\n= Roles =\nfamily${' '.repeat(20 - 6)}::  ${settings.family}\nmoderator${' '.repeat(20 - 9)}::  ${settings.moderator}\nmuteRole${' '.repeat(20 - 8)}::  ${settings.muteRole}`, { code: 'asciidoc' });
     }
   }
 }

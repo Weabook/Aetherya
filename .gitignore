@@ -4,3 +4,4 @@ config.js
 /Production/
 announcement
 commands/Moderation/tempmute.js
+.env
