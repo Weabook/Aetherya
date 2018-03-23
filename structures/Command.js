@@ -12,6 +12,7 @@ class Command {
     aliases = new Array(),
     extended = 'No information provided.',
     botPerms = [],
+    exampleUsage = [],
     permLevel = 'User',
     location = ''
   }) {
@@ -29,7 +30,8 @@ class Command {
       description,
       category,
       usage,
-      extended
+      extended,
+      exampleUsage
     };
   }
 
