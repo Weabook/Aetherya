@@ -9,7 +9,7 @@ class Reminder extends Command {
       name: 'reminder',
       description: 'Remind yourself with this command.',
       category: 'Utilities',
-      usage: 'reminder <reminder:string>',
+      usage: 'reminder <reminder:string> in <time:number>',
       extended: 'Need to be reminded to take the trash out? This command can help!',
       aliases: ['remember'],
       usageExamples: ['reminder -create practice in 20 minutes', 'reminder -delete <reminder id>', 'reminder -edit <reminder id> practice in 3 hours'],
@@ -19,16 +19,14 @@ class Reminder extends Command {
 
   async run(message, args, level) { // eslint-disable-line no-unused-vars
     const settings = this.client.settings.get(message.guild.id);
-    const pingRole =  this.client.guilds.get(message.guild.id).roles.find('name', settings.pingRole).id;
-    if (!pingRole) return message.error(undefined, `I cannot find the \`${settings.pingRole}\` role.`);
     if (!message.flags.length) {
-      let reminders = this.client.reminders.findAll('ID', pingRole).map(r => `${r.reminder} - ${moment(r.reminderTimestamp).fromNow()}`);
+      let reminders = this.client.reminders.findAll('id', message.author.id).map(r => `${r.reminder} - ${moment(r.reminderTimestamp).fromNow()}`);
       reminders.length === 0 ? reminders = 'You do not have any reminders set.' : '**Your Reminders:**\n' + reminders;
       const embed = new RichEmbed()
         .setTitle('Your Reminders')
         .setAuthor(message.author.tag, message.author.displayAvatarURL)
         .setDescription(reminders)
-        .setFooter('Scheduler', this.client.user.displayAvatarURL)
+        .setFooter('Aetherya', this.client.user.displayAvatarURL)
         .setTimestamp();
       return message.channel.send({ embed });
     }
@@ -38,10 +36,8 @@ class Reminder extends Command {
         const blah = await this.regCheck(args.join(' '));
         if (!blah) throw '|`❌`| Invalid Command usage, you must supply a reminder message and duration e.g; `Do the laundry in 20 minutes`.';
 
-        this.client.reminders.set(`${pingRole}-${message.createdTimestamp + ms(blah.split('#')[1])}`, {
-          ID: pingRole,
-          guildID: message.guild.id,
-          channelID: message.channel.id,
+        this.client.reminders.set(`${message.author.id}-${message.createdTimestamp + ms(blah.split('#')[1])}`, {
+          id: message.author.id,
           reminder: blah.split('#')[0],
           reminderTimestamp: message.createdTimestamp + ms(blah.split('#')[1])
         });
@@ -54,12 +50,12 @@ class Reminder extends Command {
         const agree = ['yes', 'y'];
         const disagree = ['no', 'n'];
         try {
-          const reminder = await this.client.reminders.get(`${pingRole}-${args[0]}`);
+          const reminder = await this.client.reminders.get(`${message.author.id}-${args[0]}`);
 
           const response = await this.client.awaitReply(message, `Are you sure you want to delete the reminder \`\`${reminder.reminder}\`\`?`, 60000);
           
           if (agree.includes(response)) {
-            await this.client.reminders.delete(`${pingRole}-${args[0]}`);
+            await this.client.reminders.delete(`${message.author.id}-${args[0]}`);
             message.reply('I have deleted the reminder.');
           } else
 
@@ -75,16 +71,14 @@ class Reminder extends Command {
       }
 
       case ('edit'): {
-        const reminder = await this.client.reminders.get(`${pingRole}-${args[0]}`);
         const id = args[0];
+        const reminder = await this.client.reminders.get(`${message.author.id}-${id}`);
         const blah = await this.regCheck(args.splice(1).join(' '));
         if (!blah) throw '|`❌`| Invalid Command usage, you must supply a reminder message and duration e.g; `Do the laundry in 20 minutes`.';
 
-        await this.client.reminders.delete(`${pingRole}-${id}`);
-        await this.client.reminders.set(`${pingRole}-${message.createdTimestamp + ms(blah.split('#')[1])}`, {
-          ID: pingRole,
-          guildID: message.guild.id,
-          channelID: message.channel.id,
+        await this.client.reminders.delete(`${message.author.id}-${id}`);
+        await this.client.reminders.set(`${message.author.id}-${message.createdTimestamp + ms(blah.split('#')[1])}`, {
+          id: message.author.id,
           reminder: blah.split('#')[0],
           reminderTimestamp: message.createdTimestamp + ms(blah.split('#')[1])
         });

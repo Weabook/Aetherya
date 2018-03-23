@@ -31,5 +31,13 @@ module.exports = class {
     this.client.guilds.filter(g => !this.client.settings.has(g.id)).forEach(g => this.client.settings.set(g.id, this.client.config.defaultSettings));
     
     this.client.user.setActivity(`for ${this.client.users.size} astronauts`, { url: 'https://www.twitch.tv/aetherya_', type: 'STREAMING'});
+
+    setInterval(() => {
+      const toRemind = this.client.reminders.filter(r => r.reminderTimestamp <= Date.now());
+      toRemind.forEach(reminder => {
+        this.client.users.get(reminder.id).send(`You asked me to remind you about: \`${reminder.reminder}\``);
+        this.client.reminders.delete(`${reminder.id}-${reminder.reminderTimestamp}`);
+      }); 
+    }, 60000); 
   }
 };
