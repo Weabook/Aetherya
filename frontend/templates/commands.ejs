@@ -29,7 +29,7 @@ bot.commands.forEach((command) => {
               <div class="modal-body">
                 <p>Usage Example: <%= command.help.usage %></p>
                 <p>Command Aliases: <%= `${command.conf.aliases.join(', ')}` %></p>
-                <p>Required Permission Level: <%= `${command.conf.permLevel` %></p>
+                <p>Required Permission Level: <%= `${command.conf.permLevel.toProperCase()}` %></p>
                 <p>Required Permissions: <%= `${command.conf.botPerms.join(', ')}` %></p>
               </div>
               <div class="modal-footer"><button type="button" class="btn btn-outline-danger" data-dismiss="modal">Close</button></div>

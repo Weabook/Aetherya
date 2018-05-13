@@ -19,9 +19,9 @@
   },
   "homepage": "https://github.com/TotallyAWeebDev/Aetherya#readme",
   "author": "OGNovuh",
-  "license": "Apache 2.0",
+  "license": "GPL-3.0",
   "dependencies": {
-    "discord.js": "^11.3.2",
+    "discord.js": "^11.3.1",
     "dotenv": "^5.0.1",
     "ejs": "^2.5.7",
     "enmap": "^2.0.1",

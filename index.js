@@ -104,6 +104,8 @@ require('./util/functions.js')(client);
 // All important things are done here. Commands and events are loaded, and a permission level cache is created.
 const init = async () => {
 
+  client.log('Aetherya', 'Copyright (C) 2018 OGNovuh', 'Copyright Notice');
+
   // Loads all commnands in the /commands directory.
   const commandList = [];
   klaw('./commands').on('data', (item) => {
