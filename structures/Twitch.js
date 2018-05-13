@@ -27,7 +27,7 @@ class Twitch extends Command {
     const { 
       RichEmbed 
     } = require('discord.js');
-    const Twitch = new (require('twitch.tv-api'))({id: this.client.config.twitchID, secret: this.client.config.twitchSecret});
+    const Twitch = new (require('twitch.tv-api'))({id: process.env.TWITCHID, secret: process.env.TWITCHSECRET});
     const stream = streamURL.slice(22);
     const data = await Twitch.getUser(stream);
     const embed = new RichEmbed()
