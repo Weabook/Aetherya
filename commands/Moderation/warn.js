@@ -26,7 +26,7 @@ class Warn extends Moderation {
     const reason   = args.splice(1, args.length).join(' ');
     if (!reason)     return message.error(message, 'Invalid command usage, you must supply a reason to use this command.');
     try {
-      await this.infractionCreate(this.client, message.guild, 'Warn', target, message.author, reason);
+      // await this.infractionCreate(this.client, message.guild, 'Warn', target, message.author, reason);
       await this.buildModLog(this.client, message.guild, 'w', target, message.author, reason);
       await message.channel.send(`\`${target.user.tag}\` was successfully warned.`);
     } catch (error) {

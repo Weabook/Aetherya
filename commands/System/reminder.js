@@ -12,7 +12,7 @@ class Reminder extends Command {
       usage: 'reminder <reminder:string> in <time:number>',
       extended: 'Need to be reminded to take the trash out? This command can help!',
       aliases: ['remember'],
-      usageExamples: ['reminder -create practice in 20 minutes', 'reminder -delete <reminder id>', 'reminder -edit <reminder id> practice in 3 hours'],
+      exampleUsage: ['reminder -create practice in 20 minutes', 'reminder -delete <reminder id>', 'reminder -edit <reminder id> practice in 3 hours'],
       botPerms: []
     });
   }
