@@ -244,14 +244,6 @@ module.exports = (client) => {
     renderTemplate(res, req, 'guild/stats.ejs', {guild});
   });
 
-  app.get('/dashboard/:guildID/stats', checkAuth, (req, res) => {
-    const guild = client.guilds.get(req.params.guildID);
-    if (!guild) return res.status(404);
-    const isManaged = guild && !!guild.member(req.user.id) ? guild.member(req.user.id).permissions.has('MANAGE_GUILD') : false;
-    if (!isManaged && !req.session.isAdmin) res.redirect('/');
-    renderTemplate(res, req, 'guild/stats.ejs', {guild});
-  });
-
   app.get('/dashboard/:guildID/reset', checkAuth, async (req, res) => {
     const guild = client.guilds.get(req.params.guildID);
     if (!guild) return res.status(404);
