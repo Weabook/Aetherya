@@ -150,8 +150,19 @@ module.exports = (client) => {
     renderTemplate(res, req, 'admin.ejs');
   });
 
+  app.get('/dashboard/:userID', checkAuth, (req, res) => {
+    const user = client.users.get(req.params.userID);
+    renderTemplate(res, req, 'users/manage.ejs');
+  });
+
   app.get('/dashboard/:guildID', checkAuth, (req, res) => {
     res.redirect(`/dashboard/${req.params.guildID}/manage`);
+  });
+
+  app.get('/dashboard/:guildID/leave', checkAuth, (req, res) => {
+    const guild = client.guilds.get(req.params.guildID);
+    guild.leave();
+    res.redirect('/dashboard');
   });
 
   app.get('/dashboard/:guildID/manage', checkAuth, (req, res) => {
