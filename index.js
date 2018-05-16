@@ -11,6 +11,7 @@ const EnmapLevel = require('enmap-level');
 const klaw = require('klaw');
 const path = require('path');
 const fs = require('fs');
+const Idiot = require('idiotic-api');
 
 // Create the base class, Aetherya, extending the Discord Client, and attach options to this.client.
 class Aetherya extends Client {
@@ -18,6 +19,8 @@ class Aetherya extends Client {
     super(options);
 
     this.config = require('./config.js');
+
+    this.api = new Idiot.Client(process.env.IDIOT, { dev: true });
 
     this.commands = new Enmap();
     this.aliases = new Enmap();
