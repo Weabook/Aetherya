@@ -24,9 +24,11 @@ class Aetherya extends Client {
 
     this.commands = new Enmap();
     this.aliases = new Enmap();
+    this.ratelimits = new Enmap();
 
     this.settings = new Enmap({ provider: new EnmapLevel({ name: 'settings'}) });
     this.reminders = new Enmap({ provider: new EnmapLevel(({ name: 'reminders'}) )});
+    this.rolelist = new Enmap({ provider: new EnmapLevel({ name: 'rolelist'}) });
   }
 
   // Create the permission level functions. Allows for restricting commands to certain permission levels created in config.js.
