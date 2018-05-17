@@ -20,7 +20,7 @@ class Set extends Command {
   
     if (action === 'edit') {
       if (!key) return message.reply('Please specify a key to edit');
-      if (!settings[key]) return message.reply('This key does not exist in the settings');
+      if (!settings.hasOwnProperty(key)) return message.reply('This key does not exist in the settings');
       if (value.length < 1) return message.reply('Please specify a new value');
     
       settings[key] = value.join(' ');

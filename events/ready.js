@@ -30,7 +30,7 @@ module.exports = class {
     // If so, create the guilds settings.
     this.client.guilds.filter(g => !this.client.settings.has(g.id)).forEach(g => this.client.settings.set(g.id, this.client.config.defaultSettings));
 
-    this.client.guilds.filter(g => !this.client.rolelist.has(g.id)).forEach(g => this.client.rolelist.set(g.id, ''));
+    this.client.guilds.filter(g => !this.client.rolelist.has(g.id)).forEach(g => this.client.rolelist.set(g.id, this.client.config.giveRoles));
     
     this.client.user.setActivity(`for ${this.client.users.size} astronauts`, { url: 'https://www.twitch.tv/aetherya_', type: 'STREAMING'});
 

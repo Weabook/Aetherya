@@ -1,4 +1,4 @@
-const Command = require('../../structures/Command.js');
+const Command = require('../../../structures/Command.js');
 const { Attachment } = require('discord.js');
 
 class Thesearch extends Command {

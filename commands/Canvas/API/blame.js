@@ -1,7 +1,7 @@
-const Social = require('../../structures/Command.js');
+const Command = require('../../../structures/Command.js');
 const { Attachment } = require('discord.js');
 
-class Blame extends Social {
+class Blame extends Command {
   constructor(client) {
     super(client, {
       name: 'blame',

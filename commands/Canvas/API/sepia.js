@@ -1,7 +1,7 @@
-const Social = require('../../structures/Command.js');
+const Command = require('../../../structures/Command.js');
 const { Attachment } = require('discord.js');
 
-class Sepia extends Social {
+class Sepia extends Command {
   constructor(client) {
     super(client, {
       name: 'sepia',
