@@ -16,15 +16,30 @@ class Reboot extends Command {
   }
 
   async run(message, args, level) { // eslint-disable-line no-unused-vars
-    try {
-      await message.reply('Bot is shutting down.');
-      this.client.commands.forEach(async cmd => {
-        await this.client.unloadCommand(cmd);
-      });
-      await exec('docker restart aetherya_bot_1');
-    } catch (e) {
-      console.log(e);
+
+    if (message.flags[0] === 'd' || message.flags[0] === 'docker') {
+      try {
+        await message.reply('Bot is shutting down.');
+        this.client.commands.forEach(async cmd => {
+          await this.client.unloadCommand(cmd);
+        });
+        await exec('docker restart aetherya_bot_1');
+      } catch (e) {
+        console.log(e);
+      }
+    } else {
+      try {
+        await message.reply('Bot is shutting down.');
+        this.client.commands.forEach(async cmd => {
+          await this.client.unloadCommand(cmd);
+        });
+        process.exit(1);
+      } catch (e) {
+        console.log(e);
+      }
     }
+
+    
   }
 }
 
