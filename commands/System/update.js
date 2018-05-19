@@ -24,7 +24,7 @@ class Update extends Command {
     if (stderr) out.push(stderr);
     await message.channel.send(out.join('---\n'), { code: true });
     if (!stdout.toString().includes('Already up-to-date.') && (message.flags[0] === 'restart' || message.flags[0] === 'r')) {
-      this.client.commands.get('reboot').run(message, '-d', level);
+      this.client.commands.get('reboot').run(message, args, level);
     }
   }
 }

@@ -29,7 +29,7 @@ class Leaderboard extends Social {
       list.map(p => ({points: p.points, user: p.user}))
         .sort((a, b) => b.points > a.points ? 1 : -1).slice(0, 10)
         .map((u, i) => {
-          leaderboard.push(`${(i + 1).toString().padStart(2, '0')} ❯ ${this.client.users.get(u.user).tag}${' '.repeat(30 - this.client.users.get(u.user).tag.length)}::  ${u.points}`);
+          leaderboard.push(`${(i + 1).toString().padStart(2, '0')} » ${this.client.users.get(u.user).tag}${' '.repeat(30 - this.client.users.get(u.user).tag.length)}::  ${u.points}`);
         });
       leaderboard.push('-------------------------------------------------------------');
       

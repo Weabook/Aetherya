@@ -1,5 +1,5 @@
 // Obtain Node.js's current version, and determine if it is above 8.5.0. If not, throw an error, and refuse to start.
-if (process.version.slice(1).split('.')[1] < 5) throw new Error('Node 8.5.0 or higher is required. Node 8.9.4 is suggested. Update Node on your system.');
+if (process.version.slice(1) < '8.5.0') throw new Error('Node 8.5.0 or higher is required. Node 8.9.4 is suggested. Update Node on your system.');
 
 // Declare dependencies.
 require('dotenv').config();
@@ -29,6 +29,7 @@ class Aetherya extends Client {
     this.settings = new Enmap({ provider: new EnmapLevel({ name: 'settings'}) });
     this.reminders = new Enmap({ provider: new EnmapLevel(({ name: 'reminders'}) )});
     this.rolelist = new Enmap({ provider: new EnmapLevel({ name: 'rolelist'}) });
+    this.points = new Enmap({provider: new EnmapLevel({name: 'points'})});
   }
 
   // Create the permission level functions. Allows for restricting commands to certain permission levels created in config.js.

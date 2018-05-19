@@ -1,4 +1,5 @@
 // Declare dependencies used to format command timestamps.
+const monitor = require('../monitors/points.js');
 const moment = require('moment');
 require('moment-duration-format');
 
@@ -23,6 +24,8 @@ module.exports = class {
     
     // Get the user or member's permission level from the permLevel function, index.js lines 28-42.
     const level = this.client.permlevel(message);
+    // Run the points monitor.
+    monitor.run(this.client, message, level);
     
     // Create a secondary master prefix. This is the bot's mention.
     const mentionPrefix = new RegExp(`^<@!?${this.client.user.id}> `);
