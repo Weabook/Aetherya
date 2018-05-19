@@ -23,7 +23,7 @@ class Reboot extends Command {
         this.client.commands.forEach(async cmd => {
           await this.client.unloadCommand(cmd);
         });
-        await exec('docker restart aetherya_bot_1');
+        await exec('docker-compose stop aetherya_bot_1');
       } catch (e) {
         console.log(e);
       }
