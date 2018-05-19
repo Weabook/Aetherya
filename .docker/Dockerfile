@@ -11,4 +11,4 @@ WORKDIR /app
 
 ENV NODE_PATH=/nodedeps/node_modules
 
-CMD ["node", "."]
+CMD ["bash", ".docker/Dockerfile"]
