@@ -8,11 +8,11 @@ class Eval extends Command {
     super(client, {
       name: 'eval',
       description: 'Evaluates arbitrary Javascript.',
-      category: 'System',
+      category: 'Owner',
       usage: 'eval <expression:string>',
       extended: 'This is an extremely dangerous command, use with caution and never eval stuff strangers tell you.',
       aliases: ['ev'],
-      permLevel: 'Bot Admin'
+      permLevel: 'Bot Owner'
     });
   }
 

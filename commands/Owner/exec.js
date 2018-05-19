@@ -8,10 +8,10 @@ class Exec extends Command {
       description: 'Executes a new process, very dangerous.',
       usage: 'exec <expression:string>',
       aliases: ['shell'],
-      category: 'System',
+      category: 'Owner',
       extended: 'This will spawn a child process and execute the given command.',
       botPerms: ['SEND_MESSAGES'],
-      permLevel: 'Bot Admin'
+      permLevel: 'Bot Owner'
     });
   }
 
