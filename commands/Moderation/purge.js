@@ -13,7 +13,7 @@ class Purge extends Moderation {
     });
   }
 
-  async run(message, args, level) { // eslint-disable-line no-unused-vars
+  async run(message, args, level) { 
     const settings = this.client.settings.get(message.guild.id);
 
     const user = message.mentions.users.first();

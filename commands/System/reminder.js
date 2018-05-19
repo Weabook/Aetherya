@@ -17,7 +17,7 @@ class Reminder extends Command {
     });
   }
 
-  async run(message, args, level) { // eslint-disable-line no-unused-vars
+  async run(message, args, level) { 
     const settings = this.client.settings.get(message.guild.id);
     if (!message.flags.length) {
       let reminders = this.client.reminders.findAll('id', message.author.id).map(r => `${r.reminder} - ${moment(r.reminderTimestamp).fromNow()}`);

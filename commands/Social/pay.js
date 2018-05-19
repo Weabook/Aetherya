@@ -13,7 +13,7 @@ class Pay extends Social {
     });
   }
 
-  async run(message, args, level) { // eslint-disable-line no-unused-vars
+  async run(message, args, level) { 
     try {
       const settings = this.client.settings.get(message.guild.id);
       const serverLang = `${settings.lang}`;

@@ -14,7 +14,7 @@ class Warn extends Moderation {
     });
   }
 
-  async run(message, args, level) { // eslint-disable-line no-unused-vars
+  async run(message, args, level) { 
     const settings = this.client.settings.get(message.guild.id);
     
     const channel  = message.guild.channels.exists('name', settings.modLogChannel);

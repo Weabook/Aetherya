@@ -14,7 +14,7 @@ class Daily extends Social {
     });
   }
 
-  async run(message, args, level) { // eslint-disable-line no-unused-vars
+  async run(message, args, level) { 
     const payee = args.join(' ') || message.author.id;
     try {
       await this.usrDay(message, message.author.id, payee);

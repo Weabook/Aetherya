@@ -15,7 +15,7 @@ class Reboot extends Command {
     });
   }
 
-  async run(message, args, level) { // eslint-disable-line no-unused-vars
+  async run(message, args, level) { 
 
     if (message.flags[0] === 'd' || message.flags[0] === 'docker') {
       try {
