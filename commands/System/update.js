@@ -17,7 +17,7 @@ class Update extends Command {
   }
 
   async run(message, args, level) {
-    const { stdout, stderr, err } = await exec('git pull origin master').catch(err => ({ err }));
+    const { stdout, stderr, err } = await exec('git pull origin rewrite').catch(err => ({ err }));
     if (err) return console.error(err);
     const out = [];
     if (stdout) out.push(stdout);
