@@ -11,13 +11,8 @@ class RoleAdd extends Command {
     });
   }
 
-  async run(message, args, level) {
+  async run(message, [...role], level) {
     const roleList = this.client.rolelist.get(message.guild.id);
-
-    const role = args[0];
-    
-    console.log(role);
-
     roleList.push(role);
     this.client.rolelist.set(message.guild.id, roleList);
     message.channel.send(`Added ${role} to the self-assignable list.`);
