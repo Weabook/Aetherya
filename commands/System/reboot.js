@@ -23,7 +23,7 @@ class Reboot extends Command {
         this.client.commands.forEach(async cmd => {
           await this.client.unloadCommand(cmd);
         });
-        await exec('docker-compose stop aetherya_bot_1');
+        process.exit(1);
       } catch (e) {
         console.log(e);
       }
@@ -33,7 +33,7 @@ class Reboot extends Command {
         this.client.commands.forEach(async cmd => {
           await this.client.unloadCommand(cmd);
         });
-        process.exit(1);
+        await exec('docker-compose stop aetherya_bot_1');
       } catch (e) {
         console.log(e);
       }
