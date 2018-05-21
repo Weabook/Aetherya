@@ -1,5 +1,5 @@
 <%- include('../blocks/header', {bot, user, path}) %>
-<h2>Server Statistics (In Dev)</h2>
+<h2>Server Information</h2>
 
   <div class="row">
     <div class="col col-4">
@@ -9,7 +9,7 @@
       <div class="card" style="width: 100%;">
         <%- include('../blocks/guild-nav', {active: "stats", guild}) %>
         <ul class="list-group list-group-flush" style="width: 100%">
-          <li class="list-group-item" style="width: 100%"><strong>Owner</strong> : <i class="fa fa-fw fa-user-circle-o" aria-hidden="true"></i> <%= `${guild.owner.user.tag}` %></li>
+          <li class="list-group-item" style="width: 100%"><strong>Owner</strong> : <i class="far fa-fw fa-user" aria-hidden="true"></i> <%= `${guild.owner.user.tag}` %></li>
           <li class="list-group-item"><strong>Members</strong> : <i class="fa fa-fw fa-users" aria-hidden="true"></i> <%= `${guild.memberCount}` %> (<i class="fa fa-fw fa-android" aria-hidden="true"></i> <%= `${guild.members.filter(m => m.user.bot).size}` %> Bots )</li>
           <li class="list-group-item"><strong>Roles</strong> : <i class="fa fa-fw fa-users" aria-hidden="true"></i> <%= guild.roles.size %></li>
           <li class="list-group-item"><strong>Channels</strong> : <i class="fa fa-fw fa-hashtag" aria-hidden="true"></i> <%= `${guild.channels.filter(c => c.type === 'text').size}`%> <i class="fa fa-fw fa-microphone" aria-hidden="true"></i> <%= `${guild.channels.filter(c => c.type === 'voice').size}`%></li>
@@ -19,5 +19,8 @@
   </div>
 
   <% include ../blocks/guild-modals %>
-
+  <script type="text/javascript">
+    var ts = parseInt($('#guildCreate').text());
+    $('#guildCreate').html(`<strong>Created</strong> : ${moment(ts).format('MMMM Do YYYY (h:mm a)')}`);
+  </script>
 <% include ../blocks/footer %>

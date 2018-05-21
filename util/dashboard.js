@@ -150,9 +150,16 @@ module.exports = (client) => {
     renderTemplate(res, req, 'admin.ejs');
   });
 
-  app.get('/dashboard/:userID', checkAuth, (req, res) => {
+  app.get('/dashboard/users/:userID', checkAuth, (req, res) => {
+    const perms = Discord.EvaluatedPermissions;
     const user = client.users.get(req.params.userID);
-    renderTemplate(res, req, 'users/manage.ejs');
+    renderTemplate(res, req, 'users/manage.ejs', {perms});
+  });
+
+  app.get('/dashboard/users/:userID/stats', checkAuth, (req, res) => {
+    const user = client.users.get(req.params.userID);
+    if (!user) return res.status(404);
+    renderTemplate(res, req, 'users/stats.ejs', {user});
   });
 
   app.get('/dashboard/:guildID', checkAuth, (req, res) => {
