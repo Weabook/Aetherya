@@ -16,4 +16,4 @@ class Profile extends Social {
   }
 }
 
-module.exports = Social;
+module.exports = Profile;

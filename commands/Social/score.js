@@ -1,4 +1,4 @@
-const Command = require('../../structures/Social.js');
+const Social = require('../../structures/Social.js');
 
 class Score extends Social {
   constructor(client) {
