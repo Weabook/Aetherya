@@ -6,7 +6,7 @@ class Daily extends Social {
       name: 'daily',
       description: 'Claim or give your daily points.',
       usage: 'daily [member:user]',
-      category: 'Social',
+      category: 'Command',
       extended: 'You can either claim or donate your daily points.',
       cost: 0,
       aliases: ['claim'],

@@ -1,12 +1,13 @@
 const Social = require('../../structures/Social.js');
 const { RichEmbed } = require('discord.js');
+
 class Leaderboard extends Social {
   constructor(client) {
     super(client, {
       name: 'leaderboard',
       description: 'Displays the top 10 active users.',
       usage: 'leaderboard',
-      category: 'Social',
+      category: 'Command',
       cost: 0,
       aliases: ['top10', 'top', 'leader', 'lb'],
       botPerms: ['EMBED_LINKS']

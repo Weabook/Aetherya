@@ -8,7 +8,6 @@ class Deduct extends Social {
       usage: 'deduct <member:user> <amount:integer>',
       category:'Moderation',
       extended: 'This will take points away from a nominated user.',
-      cost: 5,
       hidden: true,
       aliases: ['punish', 'take'],
       botPerms: [],
@@ -17,17 +16,11 @@ class Deduct extends Social {
   }
 
   async run(message, args, level) { 
-    try {
-      const settings = this.client.settings.get(message.guild.id);
-      const serverLang = `${settings.lang}`;
-      const lang = require(`../../languages/${serverLang}/${this.help.category}/${this.help.category}.json`);
-      const generalErr = require(`../../languages/${serverLang}/general.json`);
-      
-      const user = await this.verifySocialUser(args[0]);
-      if (isNaN(args[1])) throw `${generalErr.NaN}`;
-      if (args[1] < 0) throw `${lang.incorrectDeductAmnt}`;
-      else if (args[1] < 1) throw `${lang.incorrectDeductBal}`;
-      if (message.author.id === user) throw `${lang.socialDeductYrslf}`;
+    try {      
+      const user = await this.verifyCommandUser(args[0]);
+      if (isNaN(args[1])) return message.error(undefined, 'You must supply a valid amount of points to deduct from the user.');
+      if (args[1] < 0) return message.error(undefined, 'You cannot deductless than 0 points from someone.');
+      if (message.author.id === user) return message.error(undefined, 'You cannot deduct points from yourself.');
       await this.cmdPun(message, user, parseInt(args[1]));
     } catch (error) {
       throw error;

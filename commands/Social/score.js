@@ -1,4 +1,4 @@
-const Social = require('../../structures/Social.js');
+const Command = require('../../structures/Social.js');
 
 class Score extends Social {
   constructor(client) {
@@ -6,7 +6,7 @@ class Score extends Social {
       name: 'score',
       description: 'Displays your current score level and points.',
       usage: 'score [member:user]',
-      category: 'Social',
+      category: 'Command',
       cost: 0,
       aliases: ['points', 'level', 'bal', 'balance'],
       botPerms: ['SEND_MESSAGES']

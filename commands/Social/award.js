@@ -8,7 +8,6 @@ class Award extends Social {
       usage: 'award <member:user> <amount:integer>',
       category:'Moderation',
       extended: 'This will give points to a nominated user.',
-      cost: 0,
       hidden: true,
       aliases: ['reward', 'give'],
       botPerms: [],
@@ -18,16 +17,11 @@ class Award extends Social {
 
   async run(message, args, level) { 
     try {
-      const settings = this.client.settings.get(message.guild.id);
-      const serverLang = `${settings.lang}`;
-      const lang = require(`../../languages/${serverLang}/${this.help.category}/${this.help.category}.json`);
-      const generalErr = require(`../../languages/${serverLang}/general.json`);
       
-      const user = await this.verifySocialUser(args[0]);
-      if (isNaN(args[1])) throw `${generalErr.NaN}`;
-      if (args[1] < 0) throw `${lang.incorrectSocialAmnt}`;
-      else if (args[1] < 1) throw `${lang.incorrectPayBal}`;
-      if (message.author.id === user) throw `${lang.socialAwardYrslf}`;
+      const user = await this.verifyCommandUser(args[0]);
+      if (isNaN(args[1])) return message.error(undefined, 'You must supply a valid amount of points to award the user.');
+      if (args[1] < 0) return message.error(undefined, 'You cannot award someone less than 0 points. Try the `deduct` command.');
+      if (message.author.id === user) return message.error(undefined, 'You cannot award points to yourself.');
       await this.cmdRew(message, user, parseInt(args[1]));
     } catch (error) {
       throw error;

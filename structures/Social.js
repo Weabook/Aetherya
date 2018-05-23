@@ -9,13 +9,13 @@ class Social extends Command {
   constructor(client, options) {
     super(client, Object.assign(options, {
       guildOnly: true,
-      category: 'Social'
+      category: 'Command'
     }));
 
 
   }
 
-  async verifySocialUser(user) {
+  async verifyCommandUser(user) {
     try {
       const match = /(?:<@!?)?([0-9]{17,20})>?/gi.exec(user);
       if (!match) throw 'Invalid user id.';
@@ -48,7 +48,7 @@ class Social extends Command {
   }
 
   async usrDay(message, payer, payee) {
-    await this.verifySocialUser(payee);
+    await this.verifyCommandUser(payee);
     const settings = this.client.settings.get(message.guild.id);
     const dailyTime = parseInt(settings.dailyTime);
     const pointsReward = parseInt(settings.pointsReward);
@@ -110,7 +110,7 @@ class Social extends Command {
   }
 
   async usrPay(message, payer, payee, amount) {
-    await this.verifySocialUser(payee);
+    await this.verifyCommandUser(payee);
     try {
       // payer: The user paying.
       const getPayer = this.client.points.get(`${message.guild.id}-${payer}`) ||
@@ -158,7 +158,7 @@ class Social extends Command {
   }
 
   async usrBal(message, user) {
-    const id = await this.verifySocialUser(user);
+    const id = await this.verifyCommandUser(user);
     const score = this.client.points.get(`${message.guild.id}-${id}`) || this.client.points.set(`${message.guild.id}-${id}`, {
       points: 0,
       level: 0,
@@ -220,4 +220,4 @@ class Social extends Command {
     }
   }
 }
-module.exports = Social;
+module.exports = Command;
