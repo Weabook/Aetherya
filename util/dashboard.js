@@ -90,8 +90,7 @@ module.exports = (client) => {
       req.session.backURL = '/';
     }
     next();
-  },
-  passport.authenticate('discord'));
+  }, passport.authenticate('discord'));
 
   app.get('/callback', passport.authenticate('discord', { failureRedirect: '/autherror' }), (req, res) => {
     if (req.user.id === client.appInfo.owner.id) {
