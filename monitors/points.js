@@ -20,9 +20,9 @@ module.exports = class {
     if (timedOut) return;
     timeout.set(`${message.guild.id}-${message.author.id}`, true);
     const points = giveRandomPoints(parseInt(settings.minPoints), parseInt(settings.maxPoints));
+    console.log(points);
     setTimeout(() => {
       timeout.set(`${message.guild.id}-${message.author.id}`, false);
-      score.points += points;
     }, parseInt(settings.scoreTime) * 60 * 1000);
 
     const curLevel = Math.floor(0.1 * Math.sqrt(score.points));
@@ -31,6 +31,7 @@ module.exports = class {
         message.reply(`You've leveled up to level **${curLevel}**! Ain't that dandy?`);
       score.level = curLevel;
     }
+    score.points += points;
     client.points.set(`${message.guild.id}-${message.author.id}`, score);
   }
 };

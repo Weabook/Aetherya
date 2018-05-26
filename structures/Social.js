@@ -171,7 +171,7 @@ class Social extends Command {
     this.client.points.set(`${message.guild.id}-${id}`, score);
     const YouThey = id === message.author.id ? 'You' : 'They';
     const YouThem = YouThey.length > 3 ? 'them' : 'you';
-    return score ? `${YouThey} currently have ${score.points} points's, which makes ${YouThem} level ${score.level}!` : `${YouThey} have no points, or levels yet.`;
+    return score ? `${YouThey} currently have ${score.points} points, which makes ${YouThem} level ${score.level}!` : `${YouThey} have no points, or levels yet.`;
   }
 
   cmdDis(cost, level) {
@@ -220,4 +220,4 @@ class Social extends Command {
     }
   }
 }
-module.exports = Command;
+module.exports = Social;

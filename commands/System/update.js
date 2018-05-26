@@ -17,13 +17,15 @@ class Update extends Command {
   }
 
   async run(message, args, level) {
-    const { stdout, stderr, err } = await exec('git pull origin rewrite').catch(err => ({ err }));
+    const branch = args[0];
+    const action = args[1];
+    const { stdout, stderr, err } = await exec(`git pull origin ${branch}`).catch(err => ({ err }));
     if (err) return console.error(err);
     const out = [];
     if (stdout) out.push(stdout);
     if (stderr) out.push(stderr);
     await message.channel.send(out.join('---\n'), { code: true });
-    if (!stdout.toString().includes('Already up-to-date.') && (message.flags[0] === 'restart' || message.flags[0] === 'r')) {
+    if (!stdout.toString().includes('Already up-to-date.') && (action === '-restart' || action === '-r')) {
       this.client.commands.get('reboot').run(message, args, level);
     }
   }
