@@ -15,18 +15,15 @@ class Save extends Social {
   }
  
   async run(message, args, level) {
-    const msg = await message.channel.send('Creating save.');
-    const m = await message.channel.send('▱▱▱▱▱▱▱▱▱▱');
- 
-    for (let i = 0; i < 11; i++) {  
-      await m.edit('▰'.repeat(i) + '▱'.repeat(10 - i));
-      while (i === parseInt('11')) {
-        await msg.delete();
-        await m.delete();
-        await message.channel.send(new Attachment(await this.save((message.mentions.users.first() || message.author)), 'save.png'));
-      }
-    }
-    // await message.channel.send(new Attachment(await this.save((message.mentions.users.first() || message.author)), 'save.png'));
+    const m = await message.channel.send('Creating save ▱▱▱▱▱▱▱▱▱▱').then(async m => {
+      for (let i = 0; i < 11; i++) {
+        await m.edit('Creating save ' + '▰'.repeat(i) + '▱'.repeat(10 - i));
+        while (i === 10) {
+          await m.delete();
+          await message.channel.send(new Attachment(await this.save((message.mentions.users.first() || message.author)), 'save.png'));
+        }
+      }  
+    });
   }
  
   async save(member) {
@@ -46,8 +43,6 @@ class Save extends Social {
       .setShadowColor('rgba(22, 22, 22, 1)')
       .setShadowOffsetY(5)
       .setShadowBlur(10)
-      // .setColor('#A9A9A9')
-      // .addCircle(250, 325, 75)
       .restore()
       .addRoundImage(avatar, 210, 300, 75, 75, 36)
       .restore()
