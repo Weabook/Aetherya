@@ -2,6 +2,7 @@ const Command = require('../../structures/Command.js');
 const Stopwatch = require('../../util/Stopwatch.js');
 const { inspect } = require('util');
 const { post } = require('snekfetch');
+const fs = require('fs');
 
 class Eval extends Command {
   constructor(client) {
@@ -37,9 +38,33 @@ class Eval extends Command {
       output = output.replace(filter, '[TOKEN]');
       output = this.clean(output);
       if (output.length < 1950) {
-        stopwatch.stop();
-        const time = this.formatTime(syncTime, asyncTime);
-        message.channel.send(`**Output:**\n\`\`\`js\n${output}\`\`\`\n**Type:**\`\`\`${type.toLowerCase()}\`\`\`\n${time}`);
+        if (message.flags[0] === 'silent' || message.flags[0] === 's') {
+          stopwatch.stop();
+          const time = this.formatTime(syncTime, asyncTime);
+          await message.author.send(`**Output:**\n\`\`\`js\n${output}\`\`\`\n**Type:**\`\`\`${type.toLowerCase()}\`\`\`\n${time}`);
+        }
+
+        if (message.flags[0] === 'file' || message.flags[0] === 'f') {
+          stopwatch.stop();
+          const time = this.formatTime(syncTime, asyncTime);
+          const file = fs.writeFileSync('eval.js', output);
+          await message.channel.send({ file: 'eval.js' });
+          await message.channel.send(`\`\`\`${time}\`\`\``);
+        } 
+        
+        if (message.flags[0] === 'file-silent' || message.flags[0] === 'filesilent' || message.flags[0] === 'fs') {
+          stopwatch.stop();
+          const time = this.formatTime(syncTime, asyncTime);
+          const file = fs.writeFileSync('eval.js', output);
+          await message.author.send({ file: 'eval.js' });
+          await message.author.send(`${time}`);
+        }
+        
+        else {
+          stopwatch.stop();
+          const time = this.formatTime(syncTime, asyncTime);
+          await message.channel.send(`**Output:**\n\`\`\`js\n${output}\`\`\`\n**Type:**\`\`\`${type.toLowerCase()}\`\`\`\n${time}`);
+        }
       } else {
         try {
           const { body } = await post('https://www.hastebin.com/documents').send(output);
