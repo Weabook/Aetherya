@@ -24,7 +24,7 @@ class Update extends Command {
     const out = [];
     if (stdout) out.push(stdout);
     if (stderr) out.push(stderr);
-    await message.channel.send(out.join('---\n'), { code: prolog });
+    await message.channel.send(out.join('---\n'), { code: 'prolog' });
     if (!stdout.toString().includes('Already up-to-date.') && (action === '-restart' || action === '-r')) {
       this.client.commands.get('reboot').run(message, args, level);
     }
