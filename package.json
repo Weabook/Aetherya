@@ -6,7 +6,7 @@
     "test": "eslint .",
     "fix": "eslint --fix .",
     "start": "node index.js",
-    "reset": "node utilities/dataRefresher.js"
+    "reset": "bash util/scripts/dataRefresher.sh"
   },
   "repository": {
     "type": "git",
