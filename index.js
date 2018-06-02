@@ -13,6 +13,8 @@ const path = require('path');
 const fs = require('fs');
 const Idiot = require('idiotic-api');
 
+const backend = require('./util/db.js');
+
 // Create the base class, Aetherya, extending the Discord Client, and attach options to this.client.
 class Aetherya extends Client {
   constructor(options) {
@@ -30,6 +32,8 @@ class Aetherya extends Client {
     this.reminders = new Enmap({ provider: new EnmapLevel(({ name: 'reminders'}) )});
     this.rolelist = new Enmap({ provider: new EnmapLevel({ name: 'rolelist'}) });
     this.points = new Enmap({provider: new EnmapLevel({name: 'points'})});
+
+    this.db = new backend(this.config.dbCredentials);
   }
 
   // Create the permission level functions. Allows for restricting commands to certain permission levels created in config.js.
