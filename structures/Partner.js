@@ -8,7 +8,6 @@ class Partner extends Command {
   }
 
   async appNumber(client, partnerLog) {
-    console.log('I FUCKING FIRED LIKE I SHOULD HAVE!');
     const messages = await partnerLog.fetchMessages({limit: 100});
     const log = messages.filter(m => m.author.id === client.user.id
       && m.embeds[0]
@@ -25,10 +24,6 @@ class Partner extends Command {
     const { RichEmbed } = require('discord.js');
     const embed = new RichEmbed()
       .setAuthor(`${author.tag} (${author.id})`, author.displayAvatarURL)
-      // .addField('Invite Link', invite, true)
-      // .addField('Member Count', `${count} Members`, true)
-      // .addField('Status', 'Pending')
-      // .addField('Reason', reason)
       .setDescription(`**Invite Link:** ${invite} \n**Member Count:** ${count} Members\n**Status:** Pending\n**Reason:** ${reason}`)
       .setFooter(`Application ${appNumber}`)
       .setColor(color)
@@ -59,10 +54,11 @@ class Partner extends Command {
   }
 
   async buildPartnerApp(client, guild, invite, count, reason, author) {
-    const settings = client.settings.get(guild.id);
-    const appNumber = await this.appNumber(client, guild.channels.find('name', settings.partnerLog));
+    const setGuild = '335951728560046080';
+    const settings = client.settings.get(setGuild);
+    const appNumber = await this.appNumber(client, this.client.guilds.get(setGuild).channels.find('name', settings.partnerLog));
     const embed = await this.appEmbed('0xd9adfc', invite, count, reason, author, new Date(), appNumber);
-    const msg = await guild.channels.find('name', settings.partnerLog).send({ embed });
+    const msg = await this.client.guilds.get(setGuild).channels.find('name', settings.partnerLog).send({ embed });
     await msg.react(this.client.emojis.get('423664501083340811'));
     await msg.react(this.client.emojis.get('423664500999192598'));
   }

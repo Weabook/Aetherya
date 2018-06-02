@@ -1,5 +1,5 @@
 // Obtain Node.js's current version, and determine if it is above 8.5.0. If not, throw an error, and refuse to start.
-if (process.version.slice(1).split('.')[1] < 5) throw new Error('Node 8.5.0 or higher is required. Node 8.9.4 is suggested. Update Node on your system.');
+// if (process.version.slice(1) < '8.5.0') throw new Error('Node 8.5.0 or higher is required. Node 8.9.4 is suggested. Update Node on your system.');
 
 // Declare dependencies.
 require('dotenv').config();
@@ -11,6 +11,7 @@ const EnmapLevel = require('enmap-level');
 const klaw = require('klaw');
 const path = require('path');
 const fs = require('fs');
+const Idiot = require('idiotic-api');
 
 // Create the base class, Aetherya, extending the Discord Client, and attach options to this.client.
 class Aetherya extends Client {
@@ -19,11 +20,16 @@ class Aetherya extends Client {
 
     this.config = require('./config.js');
 
+    this.api = new Idiot.Client(process.env.IDIOT, { dev: true });
+
     this.commands = new Enmap();
     this.aliases = new Enmap();
+    this.ratelimits = new Enmap();
 
     this.settings = new Enmap({ provider: new EnmapLevel({ name: 'settings'}) });
     this.reminders = new Enmap({ provider: new EnmapLevel(({ name: 'reminders'}) )});
+    this.rolelist = new Enmap({ provider: new EnmapLevel({ name: 'rolelist'}) });
+    this.points = new Enmap({provider: new EnmapLevel({name: 'points'})});
   }
 
   // Create the permission level functions. Allows for restricting commands to certain permission levels created in config.js.
@@ -89,6 +95,41 @@ class Aetherya extends Client {
     delete require.cache[require.resolve(`${commandPath}/${commandName}.js`)];
     return false;
   }
+
+  /* SETTINGS FUNCTIONS
+  These functions are used by any and all location in the bot that wants to either
+  read the current *complete* guild settings (default + overrides, merged) or that
+  wants to change settings for a specific guild.
+  */
+
+  // getSettings merges the client defaults with the guild settings. guild settings in
+  // enmap should only have *unique* overrides that are different from defaults.
+  getSettings(id) {
+    const defaults = this.settings.get('default');
+    let guild = this.settings.get(id);
+    if (typeof guild != 'object') guild = {};
+    const returnObject = {};
+    Object.keys(defaults).forEach((key) => {
+      returnObject[key] = guild[key] ? guild[key] : defaults[key];
+    });
+    return returnObject;
+  }
+
+  // writeSettings overrides, or adds, any configuration item that is different
+  // than the defaults. This ensures less storage wasted and to detect overrides.
+  writeSettings(id, newSettings) {
+    const defaults = this.settings.get('default');
+    let settings = this.settings.get(id);
+    if (typeof settings != 'object') settings = {};
+    for (const key in newSettings) {
+      if (defaults[key] !== newSettings[key]) {
+        settings[key] = newSettings[key];
+      } else {
+        delete settings[key];
+      }
+    }
+    this.settings.set(id, settings);
+  }
 }
 
 // Create the actual client, the one that logs in.
@@ -103,6 +144,8 @@ require('./util/functions.js')(client);
 
 // All important things are done here. Commands and events are loaded, and a permission level cache is created.
 const init = async () => {
+
+  client.log('Aetherya', 'Copyright (C) 2018 OGNovuh', 'Copyright Notice');
 
   // Loads all commnands in the /commands directory.
   const commandList = [];

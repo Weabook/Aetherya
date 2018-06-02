@@ -1,4 +1,5 @@
 // Declare dependencies used to format command timestamps.
+const monitor = require('../monitors/points.js');
 const moment = require('moment');
 require('moment-duration-format');
 
@@ -23,6 +24,8 @@ module.exports = class {
     
     // Get the user or member's permission level from the permLevel function, index.js lines 28-42.
     const level = this.client.permlevel(message);
+    // Run the points monitor.
+    monitor.run(this.client, message, level);
     
     // Create a secondary master prefix. This is the bot's mention.
     const mentionPrefix = new RegExp(`^<@!?${this.client.user.id}> `);
@@ -57,6 +60,12 @@ module.exports = class {
     // in index.js.
     const cmd = this.client.commands.get(command) || this.client.commands.get(this.client.aliases.get(command));
     if (!cmd) return;
+
+    const rateLimit = await this.client.ratelimit(message, level, cmd.help.name, cmd.conf.cooldown); 
+    if (typeof rateLimit == 'string') {
+      this.client.log('Log', `${this.client.config.permLevels.find(l => l.level === level).name} ${message.author.username} (${message.author.id}) got ratelimited while running command ${cmd.help.name}`);
+      return message.channel.send(`Please wait ${rateLimit.toPlural()} to run this command.`);
+    }
 
     // Some commands may not be useable in DMs. This check prevents those commands from running
     // and return a friendly error message.

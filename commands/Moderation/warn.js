@@ -14,7 +14,7 @@ class Warn extends Moderation {
     });
   }
 
-  async run(message, args, level) { // eslint-disable-line no-unused-vars
+  async run(message, args, level) { 
     const settings = this.client.settings.get(message.guild.id);
     
     const channel  = message.guild.channels.exists('name', settings.modLogChannel);
@@ -26,7 +26,7 @@ class Warn extends Moderation {
     const reason   = args.splice(1, args.length).join(' ');
     if (!reason)     return message.error(message, 'Invalid command usage, you must supply a reason to use this command.');
     try {
-      await this.infractionCreate(this.client, message.guild, 'Warn', target, message.author, reason);
+      // await this.infractionCreate(this.client, message.guild, 'Warn', target, message.author, reason);
       await this.buildModLog(this.client, message.guild, 'w', target, message.author, reason);
       await message.channel.send(`\`${target.user.tag}\` was successfully warned.`);
     } catch (error) {

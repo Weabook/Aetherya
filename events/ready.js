@@ -7,7 +7,6 @@ module.exports = class {
   }
 
   async run() {
-
     // Wait 1 second to allow for the settings to load.
     await this.client.wait(1000);
 
@@ -29,6 +28,8 @@ module.exports = class {
     // Filter through the guilds to see if a guild was added while the bot was offline.
     // If so, create the guilds settings.
     this.client.guilds.filter(g => !this.client.settings.has(g.id)).forEach(g => this.client.settings.set(g.id, this.client.config.defaultSettings));
+
+    this.client.guilds.filter(g => !this.client.rolelist.has(g.id)).forEach(g => this.client.rolelist.set(g.id, this.client.config.giveRoles));
     
     this.client.user.setActivity(`for ${this.client.users.size} astronauts`, { url: 'https://www.twitch.tv/aetherya_', type: 'STREAMING'});
 
@@ -38,6 +39,12 @@ module.exports = class {
         this.client.users.get(reminder.id).send(`You asked me to remind you about: \`${reminder.reminder}\``);
         this.client.reminders.delete(`${reminder.id}-${reminder.reminderTimestamp}`);
       }); 
-    }, 60000); 
+    }, 60000);
+
+    // this.client.guilds.forEach(g => {
+    //   g.fetchInvites().then(guildInvites => {
+    //     invites[g.id] = guildInvites;
+    //   });
+    // });
   }
 };

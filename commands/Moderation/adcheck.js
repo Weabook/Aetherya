@@ -14,7 +14,7 @@ class AdCheck extends Moderation {
     });
   }
 
-  async run(message, args, level) { // eslint-disable-line no-unused-vars
+  async run(message, args, level) {
     const members = message.guild.members.filter(member => member.user.presence.game && /(discord\.(gg|io|me|li)\/.+|discordapp\.com\/invite\/.+)/i.test(member.user.presence.game.name));
     return message.channel.send(members.map(member => `-kick ${member.id} Discord invite link in \\\`Playing:\\\` field. (${member.user.presence.game.name})`).join('\n') || 'No invite links found.');
   }

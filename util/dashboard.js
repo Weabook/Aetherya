@@ -90,8 +90,7 @@ module.exports = (client) => {
       req.session.backURL = '/';
     }
     next();
-  },
-  passport.authenticate('discord'));
+  }, passport.authenticate('discord'));
 
   app.get('/callback', passport.authenticate('discord', { failureRedirect: '/autherror' }), (req, res) => {
     if (req.user.id === client.appInfo.owner.id) {
@@ -150,8 +149,26 @@ module.exports = (client) => {
     renderTemplate(res, req, 'admin.ejs');
   });
 
+  app.get('/dashboard/users/:userID', checkAuth, (req, res) => {
+    const perms = Discord.EvaluatedPermissions;
+    const user = client.users.get(req.params.userID);
+    renderTemplate(res, req, 'users/manage.ejs', {perms});
+  });
+
+  app.get('/dashboard/users/:userID/stats', checkAuth, (req, res) => {
+    const user = client.users.get(req.params.userID);
+    if (!user) return res.status(404);
+    renderTemplate(res, req, 'users/stats.ejs', {user});
+  });
+
   app.get('/dashboard/:guildID', checkAuth, (req, res) => {
     res.redirect(`/dashboard/${req.params.guildID}/manage`);
+  });
+
+  app.get('/dashboard/:guildID/leave', checkAuth, (req, res) => {
+    const guild = client.guilds.get(req.params.guildID);
+    guild.leave();
+    res.redirect('/dashboard');
   });
 
   app.get('/dashboard/:guildID/manage', checkAuth, (req, res) => {
@@ -167,7 +184,7 @@ module.exports = (client) => {
     if (!guild) return res.status(404);
     const isManaged = guild && !!guild.member(req.user.id) ? guild.member(req.user.id).permissions.has('MANAGE_GUILD') : false;
     if (!isManaged && !req.session.isAdmin) res.redirect('/');
-    client.writeSettings(guild.id, req.body);
+    client.settings.set(guild.id, req.body);
     res.redirect('/dashboard/'+req.params.guildID+'/manage');
   });
 
@@ -234,14 +251,6 @@ module.exports = (client) => {
       pageof: Math.ceil(members.size / limit),
       members: returnObject
     });
-  });
-
-  app.get('/dashboard/:guildID/stats', checkAuth, (req, res) => {
-    const guild = client.guilds.get(req.params.guildID);
-    if (!guild) return res.status(404);
-    const isManaged = guild && !!guild.member(req.user.id) ? guild.member(req.user.id).permissions.has('MANAGE_GUILD') : false;
-    if (!isManaged && !req.session.isAdmin) res.redirect('/');
-    renderTemplate(res, req, 'guild/stats.ejs', {guild});
   });
 
   app.get('/dashboard/:guildID/stats', checkAuth, (req, res) => {

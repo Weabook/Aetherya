@@ -12,7 +12,7 @@ class Announcement extends Command {
     });
   }
 
-  async run(message, [role, ...announcement], level) { // eslint-disable-line no-unused-vars
+  async run(message, [role, ...announcement], level) { 
     try {
       const settings = this.client.getSettings(message.guild.id);      
       const anRole = message.guild.roles.find('name', `${role}`);

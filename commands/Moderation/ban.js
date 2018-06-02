@@ -14,7 +14,7 @@ class Ban extends Moderation {
     });
   }
 
-  async run(message, args, level) { // eslint-disable-line no-unused-vars
+  async run(message, args, level) {
     const settings = this.client.settings.get(message.guild.id);
 
     const channel  = message.guild.channels.exists('name', settings.modLogChannel);
@@ -25,7 +25,7 @@ class Ban extends Moderation {
     if (typeof modLevel === 'string') return message.reply(modLevel);
     const reason   = args.splice(1, args.length).join(' ');
     try {
-      await target.ban({days:0, reason: reason.length < 1 ? 'No reason supplied.': reason});
+      await target.ban({ days: 0, reason: reason.length < 1 ? 'No reason supplied.' : reason });
       await this.buildModLog(this.client, message.guild, 'b', target, message.author, reason);
       await message.channel.send(`\`${target.user.tag}\` was successfully banned.`);
     } catch (error) {

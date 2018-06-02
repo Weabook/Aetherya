@@ -1,0 +1,19 @@
+<%- include('../blocks/header', {bot, user, path}) %>
+<h2>User Information</h2>
+
+  <div class="row">
+    <div class="col col-4">
+      <%- include('../blocks/user-card', {user}) %>
+    </div>
+    <div class="col">
+      <div class="card" style="width: 100%;">
+        <%- include('../blocks/user-nav', {active: "stats", user}) %>
+        <ul class="list-group list-group-flush" style="width: 100%">
+          <li class="list-group-item" style="width: 100%"><strong>User</strong> : <i class="far fa-fw fa-user" aria-hidden="true"></i> <%= `${user.tag}` %></li>
+          <li class="list-group-item" style="width: 100%"><strong>Created</strong> : <i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i><%= `${user.createdAt}` %></li>
+          <li class="list-group-item" style="width: 100%"><strong>Shared Servers</strong>: <i class="fas fa-fw fa-server"></i> <%= bot.guilds.filter(g => g.members.has(user.id)).size %></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+<% include ../blocks/footer %>

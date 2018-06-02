@@ -13,7 +13,7 @@ class Reason extends Moderation {
     });
   }
 
-  async run(message, args, level) { // eslint-disable-line no-unused-vars
+  async run(message, args, level) { 
     const caseNumber  =  args.shift();
     const newReason   =  args.join(' ');
     const settings    =  message.settings;

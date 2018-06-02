@@ -20,7 +20,7 @@ class Set extends Command {
   
     if (action === 'edit') {
       if (!key) return message.reply('Please specify a key to edit');
-      if (!settings[key]) return message.reply('This key does not exist in the settings');
+      if (!settings.hasOwnProperty(key)) return message.reply('This key does not exist in the settings');
       if (value.length < 1) return message.reply('Please specify a new value');
     
       settings[key] = value.join(' ');
@@ -59,7 +59,7 @@ class Set extends Command {
       //       });
       //       await message.channel.send(`= Current Guild Settings =
       // ${array.join('\n')}`, {code: 'asciidoc'});
-      await message.channel.send(`= Current Guild Settings =\n\n= Strings =\nprefix${' '.repeat(20 - 6)}::  ${settings.prefix}\n\n= Booleans =\njoinEnabled${' '.repeat(20 - 11)}::  ${settings.joinEnabled}\nleaveEnabled${' '.repeat(20 - 12)}::  ${settings.leaveEnabled}\neditEnabled${' '.repeat(20 - 11)}::  ${settings.editEnabled}\ndeleteEnabled${' '.repeat(20 - 13)}::  ${settings.deleteEnabled}\n\n= Channels =\nstreamChannel${' '.repeat(20 - 13)}::  ${settings.streamChannel}\nannounceChannel${' '.repeat(20 - 15)}::  ${settings.announceChannel}\nmodLogChannel${' '.repeat(20 - 13)}::  ${settings.modLogChannel}\npartnerLog${' '.repeat(20 - 10)}::  ${settings.partnerLog}\n\n= Roles =\nfamily${' '.repeat(20 - 6)}::  ${settings.family}\nmoderator${' '.repeat(20 - 9)}::  ${settings.moderator}\nmuteRole${' '.repeat(20 - 8)}::  ${settings.muteRole}`, { code: 'asciidoc' });
+      await message.channel.send(`${' '.repeat(23)} = Current Guild Settings =\n\n= Strings =\nprefix${' '.repeat(20 - 6)}::  ${settings.prefix}\n\n= Booleans =\njoinEnabled${' '.repeat(20 - 11)}::  ${settings.joinEnabled}\nleaveEnabled${' '.repeat(20 - 12)}::  ${settings.leaveEnabled}\neditEnabled${' '.repeat(20 - 11)}::  ${settings.editEnabled}\ndeleteEnabled${' '.repeat(20 - 13)}::  ${settings.deleteEnabled}\n\n= Channels =\nstreamChannel${' '.repeat(20 - 13)}::  ${settings.streamChannel}\nannounceChannel${' '.repeat(20 - 15)}::  ${settings.announceChannel}\nmodLogChannel${' '.repeat(20 - 13)}::  ${settings.modLogChannel}\npartnerLog${' '.repeat(20 - 10)}::  ${settings.partnerLog}\n\n= Roles =\nfamily${' '.repeat(20 - 6)}::  ${settings.family}\nmoderator${' '.repeat(20 - 9)}::  ${settings.moderator}\nmuteRole${' '.repeat(20 - 8)}::  ${settings.muteRole}\n\n= Points =\nMinimum Points${' '.repeat(20 - 14)}::  ${settings.minPoints}\nMaximum Points${' '.repeat(20 - 14)}::  ${settings.maxPoints}\nDaily Reward${' '.repeat(20 - 12)}::  ${settings.pointsReward}\nDaily Delay${' '.repeat(20 - 11)}::  ${settings.dailyTime}`, { code: 'asciidoc' });
     }
   }
 }

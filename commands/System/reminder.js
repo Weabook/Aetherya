@@ -12,12 +12,12 @@ class Reminder extends Command {
       usage: 'reminder <reminder:string> in <time:number>',
       extended: 'Need to be reminded to take the trash out? This command can help!',
       aliases: ['remember'],
-      usageExamples: ['reminder -create practice in 20 minutes', 'reminder -delete <reminder id>', 'reminder -edit <reminder id> practice in 3 hours'],
+      exampleUsage: ['reminder -create practice in 20 minutes', 'reminder -delete <reminder id>', 'reminder -edit <reminder id> practice in 3 hours'],
       botPerms: []
     });
   }
 
-  async run(message, args, level) { // eslint-disable-line no-unused-vars
+  async run(message, args, level) { 
     const settings = this.client.settings.get(message.guild.id);
     if (!message.flags.length) {
       let reminders = this.client.reminders.findAll('id', message.author.id).map(r => `${r.reminder} - ${moment(r.reminderTimestamp).fromNow()}`);
