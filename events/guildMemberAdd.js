@@ -1,6 +1,5 @@
 const { Attachment } = require('discord.js');
 const moment = require('moment');
-const { yorkAPIKey } = require('../config.js');
 
 module.exports = class {
   constructor(client) {

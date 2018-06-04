@@ -22,6 +22,18 @@ class db {
       ON CONFLICT (id) DO NOTHING
       `, [guildID]);
   }
+
+  async ensureMember(client, guildID, memberID) {
+    await this.ensureGuild(client, guildID);
+    const res = await client.query(`
+      INSERT INTO users (id, guild)
+      VALUES (
+        $1::BIGINT,
+        $2::BIGINT
+      )
+    `, [memberID, guildID]);
+    return res.rows[0];
+  }
 }
 
 module.exports = db;

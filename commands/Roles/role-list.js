@@ -12,9 +12,9 @@ class RoleList extends Command {
   }
 
   async run(message, args, level) {
-    const roleList = this.client.rolelist.get(message.guild.id);
+    const roleList = ['Felic\'s Stream', 'Lady\'s Stream', 'aria\'s Stream', 'v i e w e r s', 'Bananakin\'s Stream', 'Rashaun\'s Stream', 'Updates', 'Shoutouts'];
 
-    message.channel.send(`= Roles = \n${roleList}`, { code: 'asciidoc' });
+    message.channel.send(`= Roles = \n${roleList.join('\n')}`, { code: 'asciidoc' });
   }
 }
 

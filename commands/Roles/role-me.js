@@ -12,16 +12,10 @@ class RoleMe extends Command {
   }
 
   async run(message, [...role], level) {
-    const roleList = this.client.rolelist.get(message.guild.id);
-
-    if (roleList[role]) {
-      const add = await message.guild.roles.find('name', role);
-      const member = await message.guild.fetchMember(message.author.id);
-      member.addRole(add);
-      await message.channel.send(`Added ${role}.`);
-    } else {
-      return message.channel.send(`${role} is not on the self-assignable list. You can view it by running \`>role-list\`.`);
-    }
+    const roleList = ['Felic\'s Stream', 'Lady\'s Stream', 'aria\'s Stream', 'v i e w e r s', 'Bananakin\'s Stream', 'Rashaun\'s Stream', 'Updates', 'Shoutouts'];
+    if (!roleList.includes(role)) return message.error(undefined, `${role} is not selfassignable. You can view the list of roles you can assign to youself with \`>role-list\``);
+    await message.member.addRole(role);
+    await message.channel.send(`You've been given the ${role} role.`);
   }
 }
 
