@@ -34,6 +34,29 @@ class db {
     `, [memberID, guildID]);
     return res.rows[0];
   }
+
+  async createInfraction(client, memberID, guildID, type, reason, modID) {
+    await this.ensureGuild(client, guildID);
+    const res = await client.query(`
+      INSERT INTO infractions (id, guild, action_type, reason, mod_id)
+      VALUES (
+        $1::BIGINT,
+        $2::BIGINT,
+        $3,
+        $4,
+        $5::BIGINT
+      )
+    `, [memberID, guildID, type, reason, modID]);
+    return res.rows[0];
+  }
+
+  async getUserInfractions(client, memberID, guildID) {
+    await this.ensureGuild(client, guildID);
+    const res = await client.query(`
+      SELECT case_num, id, guild, action_type, reason, mod_id FROM infractions WHERE guild = $2 AND id = $1
+    `, [memberID, guildID]);
+    return res.rows;
+  }
 }
 
 module.exports = db;
