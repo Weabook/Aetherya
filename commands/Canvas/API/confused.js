@@ -15,7 +15,7 @@ class Confused extends Command {
 
   async run(message, args, level) {
     try {
-      await message.channel.send(new Attachment(await this.client.api.confused(message.author.displayAvatarURL, message.guild.members.random().displayAvatarURL), 'confused.png'));
+      await message.channel.send(new Attachment(await this.client.api.confused(message.author.displayAvatarURL, message.guild.members.random().user.displayAvatarURL), 'confused.png'));
     } catch (error) {
       throw error;
     }
