@@ -26,6 +26,10 @@ Message.prototype.codeBlock = function(lang, expression) {
   return `\`\`\`${type}\n${expression}\`\`\``;
 };
 
+Message.prototype.error = function(message, content, embed, options = {}) {
+  return message.channel.send(`${this.author} \`|❌|\` ${content}`, embed);
+};
+
 User.prototype.tempMute = async function(client, message, user, time) {
   const { muteRole } = client.settings.get(message.guild.id);
   await user.addRole(muteRole).then(() => {

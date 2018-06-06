@@ -13,6 +13,8 @@ const path = require('path');
 const fs = require('fs');
 const Idiot = require('idiotic-api');
 
+require('./util/Prototypes.js');
+
 const backend = require('./util/db.js');
 
 // Create the base class, Aetherya, extending the Discord Client, and attach options to this.client.

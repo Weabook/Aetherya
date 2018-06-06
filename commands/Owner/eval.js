@@ -59,7 +59,7 @@ class Eval extends Command {
           await message.author.send({ file: 'eval.js' });
           await message.author.send(`${time}`);
         }
-
+        
         else {
           stopwatch.stop();
           const time = this.formatTime(syncTime, asyncTime);

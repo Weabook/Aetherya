@@ -21,7 +21,6 @@ module.exports = class {
     if (timedOut) return;
     timeout.set(`${message.guild.id}-${message.author.id}`, true);
     const points = giveRandomPoints(parseInt(settings.minPoints), parseInt(settings.maxPoints));
-    console.log(points);
     setTimeout(() => {
       timeout.set(`${message.guild.id}-${message.author.id}`, false);
     }, parseInt(settings.scoreTime) * 60 * 1000);

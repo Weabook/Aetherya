@@ -58,11 +58,11 @@ class Command {
         }
         page = page <= 0 ? 0 : page >= list.length  ? list.length - 1 : page;      
         embed.edit(embedMakerFunction(list, page));
-        res.users.remove(message.author);
+        res.remove(message.author);
         return this.progressPages(message, embed, list, page, embedMakerFunction);
       })
       .catch((error) => {
-        this.client.logger.error(error);
+        this.client.log('ERROR', error, 'Error');
         return message.channel.send('There was some error, sorry for the interuption.').then(sent => sent.delete({ timeout : 5000 }));
       });
   }

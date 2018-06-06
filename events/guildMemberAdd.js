@@ -14,7 +14,7 @@ module.exports = class {
 
     if (!member || !member.id || !member.guild) return;
 
-    const channel = guild.channels.find('name', settings.modLogChannel);
+    const channel = guild.channels.find('name', settings.memberLogs);
     if (!channel) return;
     const fromNow = moment(member.user.createdTimestamp).fromNow();
     const isNew = (new Date() - member.user.createdTimestamp) < 900000 ? '🆕' : '';

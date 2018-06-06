@@ -93,6 +93,15 @@ class Moderation extends Command {
     const embed = await this.caseEmbed(thisAction.color, `**Action:** ${thisAction.display}\n**Target:** ${target.user.tag} (${target.id})\n**Moderator:** ${mod.tag} (${mod.id})\n**Reason:** ${reason}`,`${mod.tag} (${mod.id})`, new Date(), `Case ${caseNumber}`);
     return guild.channels.find('name', settings.modLogChannel).send({embed});
   }
+  
+  async infractionCreate(client, guildID, targetID, modID, action, reason) {
+    const conn = await client.db.acquire();
+    try {
+      await this.client.db.createInfraction(conn, target, guild, action, reason, mod);
+    } finally {
+      conn.release();
+    }
+  }
 }
 
 // Export the class to allow for use in commands.

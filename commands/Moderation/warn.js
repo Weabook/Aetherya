@@ -16,7 +16,7 @@ class Warn extends Moderation {
 
   async run(message, args, level) { 
     const settings = this.client.settings.get(message.guild.id);
-    
+
     const channel  = message.guild.channels.exists('name', settings.modLogChannel);
     if (!channel)    return message.error(message, `I cannot find the \`${settings.modLogChannel}\` channel. Try running \`${settings.prefix}set edit modLogChannel logs\`.`);
     const target   = await this.verifyMember(message.guild, args[0]);
