@@ -9,6 +9,7 @@ module.exports = class {
 
   static run(client, message, level) {
     this.givePoints(client, message, level);
+    this.antiInvite(client, message, level);
   }
 
   static givePoints(client, message, level) {
@@ -33,5 +34,25 @@ module.exports = class {
     }
     score.points += points;
     client.points.set(`${message.guild.id}-${message.author.id}`, score);
+  }
+
+  static antiInvite(client, message, level) {
+    if (level > 0) return;
+    if (/(discord\.(gg|io|me|li)\/.+|discordapp\.com\/invite\/.+)/i.test(message.content)) {
+      message.delete().then(() => {
+        let count = 1;
+        const spammer = `${message.guild.id}-${message.author.id}`;
+        const list = client.invspam.get(spammer) || client.invspam.set(spammer, { count: 0 }).get(spammer);
+        if (list) count = list.count + 1;
+        if (count >= parseInt(client.settings.get(message.guild.id).inviteLimit)) {
+          message.member.ban({ days: 2, reason: 'Automatic ban, invite spam threshold exceeded.' }).then((g) => {
+            message.channel.send(`${g.user.username} was successfully banned for invite spam`);
+            client.invspam.delete(spammer);
+          });
+        }
+        client.invspam.set(spammer, { count });
+      });
+      message.channel.send(`${message.author} |\`⛔\`| Your message contained a server invite link, which this server prohibits.`);
+    }
   }
 };

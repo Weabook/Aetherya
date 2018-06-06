@@ -11,17 +11,16 @@ class Moderation extends Command {
     }));
     
     this.actions = {
-      w: { color: 0xFFFF00, display: 'Warn'    },
-      m: { color: 0xFF9900, display: 'Mute'    },
-      k: { color: 0xFF3300, display: 'Kick'    },
-      hb: { color: 0xFF9933, display: 'Hackban'},
-      s: { color: 0xFF2F00, display: 'Softban' },
-      b: { color: 0xFF0000, display: 'Ban'     },
-      u: { color: 0x006699, display: 'Unban'   },
-      ld: { color: 0x7289DA, display: 'Lockdown'},
-      bl: { color: 0x7289DA, display: 'Blacklist'}
+      w: { color: 0xFFFF00, display: 'Warn'    }, // Yellow 
+      k: { color: 0xFFA500, display: 'Kick'    }, // Orange
+      m: { color: 0x00FFFF, display: 'Mute'    }, // Aqua
+      um: { color: 0x00FFFF, display: 'Unmute' }, // Aqua
+      s: { color: 0xEE5A5A, display: 'Softban' }, // Flamingo (Light Red)
+      b: { color: 0xFF0000, display: 'Ban'     }, // Red
+      hb: { color: 0xFF0000, display: 'Hackban'}, // Red
+      u: { color: 0x000000, display: 'Unban'   }, // Black
+      ld: { color: 0x7289DA, display: 'Lockdown'} // Blurple!
     };
-
   }
 
   // Make sure that you aren't trying to do anything stupid.
@@ -31,11 +30,11 @@ class Moderation extends Command {
       const id = await this.verifyUser(user);
       const target = await message.guild.fetchMember(id).catch(() => { message.channel.send(`${message.author}, |\`❓\`| Cannot find member in guild.`); });
       if (target.highestRole.position >= modBot.highestRole.position) message.channel.send(`${message.author}, |\`🛑\`| You cannot perform that action on someone of equal, or higher role.`);
-      if (message.author.id === id) message.channel.send(`${message.author}, |\`🛑\`| You cannot moderate yourself.`);
+      if (message.author.id === id) return message.channel.send(`${message.author}, |\`🛑\`| You cannot moderate yourself.`);
       const author = target.user;
       const member = target;
       const msg = { author:author, member:member, guild: message.guild, client: this.client, channel: message.channel };
-      if (level <= this.client.permlevel(msg)) message.channel.send(`${message.author}, |\`🛑\`| You cannot perform that action on someone of equal, or a higher permission level.`);
+      if (level <= this.client.permlevel(msg)) return message.channel.send(`${message.author}, |\`🛑\`| You cannot perform that action on someone of equal, or a higher permission level.`);
       return target;
     } catch (error) {
       throw error;
@@ -95,7 +94,7 @@ class Moderation extends Command {
   }
   
   async infractionCreate(client, guildID, targetID, modID, action, reason) {
-    const conn = await client.db.acquire();
+    const conn = await this.client.db.acquire();
     try {
       await this.client.db.createInfraction(conn, target, guild, action, reason, mod);
     } finally {

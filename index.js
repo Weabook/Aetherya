@@ -29,7 +29,8 @@ class Aetherya extends Client {
     this.commands = new Enmap();
     this.aliases = new Enmap();
     this.ratelimits = new Enmap();
-
+    this.invspam = new Enmap();
+    
     this.settings = new Enmap({ provider: new EnmapLevel({ name: 'settings'}) });
     this.reminders = new Enmap({ provider: new EnmapLevel(({ name: 'reminders'}) )});
     this.rolelist = new Enmap({ provider: new EnmapLevel({ name: 'rolelist'}) });

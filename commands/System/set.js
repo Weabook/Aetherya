@@ -31,7 +31,7 @@ class Set extends Command {
   
     if (action === 'del' || action === 'reset') {
       if (!key) return message.reply('Please specify a key to delete (reset).');
-      if (!settings[key]) return message.reply('This key does not exist in the settings');
+      if (!settings.hasOwnProperty(key)) return message.reply('This key does not exist in the settings');
       
       const response = await this.client.awaitReply(message, `Are you sure you want to reset \`${key}\` to the default \`${defaults[key]}\`?`);
 
@@ -49,7 +49,7 @@ class Set extends Command {
   
     if (action === 'get') {
       if (!key) return message.reply('Please specify a key to view');
-      if (!settings[key]) return message.reply('This key does not exist in the settings');
+      if (!settings.hasOwnProperty(key)) return message.reply('This key does not exist in the settings');
       message.reply(`The value of ${key} is currently ${settings[key]}`);
       
     } else {

@@ -1,5 +1,5 @@
 // Declare dependencies used to format command timestamps.
-const monitor = require('../monitors/points.js');
+const monitor = require('../monitors/monitor.js');
 const moment = require('moment');
 require('moment-duration-format');
 
