@@ -6,7 +6,7 @@ class Pay extends Social {
       name: 'pay',
       description: 'Pay another user your activity points.',
       usage: 'pay<member:user> <amount:integer>',
-      category: 'Command',
+      category: 'Social',
       cost: 0,
       aliases: ['loan', 'donate'],
       botPerms: ['SEND_MESSAGES']

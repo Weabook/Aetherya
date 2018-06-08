@@ -27,7 +27,7 @@ Message.prototype.codeBlock = function(lang, expression) {
 };
 
 Message.prototype.error = function(message, content, embed, options = {}) {
-  return message.channel.send(`${this.author} \`|❌|\` ${content}`, embed);
+  return this.channel.send(`${this.author} \`|❌|\` ${content}`, embed);
 };
 
 User.prototype.tempMute = async function(client, message, user, time) {

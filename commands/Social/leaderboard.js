@@ -7,7 +7,7 @@ class Leaderboard extends Social {
       name: 'leaderboard',
       description: 'Displays the top 10 active users.',
       usage: 'leaderboard',
-      category: 'Command',
+      category: 'Social',
       cost: 0,
       aliases: ['top10', 'top', 'leader', 'lb'],
       botPerms: ['EMBED_LINKS']

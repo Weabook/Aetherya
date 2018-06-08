@@ -1,7 +1,6 @@
 const Command = require('../../structures/Command.js');
 const Stopwatch = require('../../util/Stopwatch.js');
 const { inspect } = require('util');
-const { post } = require('snekfetch');
 const fs = require('fs');
 
 class Eval extends Command {
@@ -67,10 +66,10 @@ class Eval extends Command {
         }
       } else {
         try {
-          const { body } = await post('https://www.hastebin.com/documents').send(output);
-          message.channel.send(`Output was to long so it was uploaded to hastebin https://www.hastebin.com/${body.key}.js `);
+          const link = await this.client.haste.post(output);
+          message.channel.send(`Output was to long so it was uploaded to hastebin ${link}`);
         } catch (error) {
-          message.channel.send(`I tried to upload the output to hastebin but encountered this error ${error.name}:${error.message}`);
+          message.channel.send(`I tried to upload the output to hastebin but encountered this error \`${error.name}:${error.message}\``);
         }
       }
     } catch (error) {

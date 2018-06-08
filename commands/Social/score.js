@@ -6,7 +6,7 @@ class Score extends Social {
       name: 'score',
       description: 'Displays your current score level and points.',
       usage: 'score [member:user]',
-      category: 'Command',
+      category: 'Social',
       cost: 0,
       aliases: ['points', 'level', 'bal', 'balance'],
       botPerms: ['SEND_MESSAGES']

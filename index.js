@@ -12,6 +12,7 @@ const klaw = require('klaw');
 const path = require('path');
 const fs = require('fs');
 const Idiot = require('idiotic-api');
+const Hastebin = require('hastebin.js');
 
 require('./util/Prototypes.js');
 
@@ -24,6 +25,7 @@ class Aetherya extends Client {
 
     this.config = require('./config.js');
 
+    this.haste = new Hastebin();
     this.api = new Idiot.Client(process.env.IDIOT, { dev: true });
 
     this.commands = new Enmap();
