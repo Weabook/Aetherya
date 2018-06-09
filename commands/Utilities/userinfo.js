@@ -9,7 +9,7 @@ class UserInfo extends Command {
       description: 'Get info about a certain user',
       user: 'user <user:mention>',
       aliases: ['user'],
-      permLevel: 'User'
+      permLevel: 'Moderator'
     });
   }
 
