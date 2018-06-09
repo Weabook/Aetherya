@@ -36,7 +36,7 @@ class Deny extends Partner {
       
         await this.client.users.get(app.authorID).send(reason);
         const embed = await this.appDeny('0xfe908a', app.invite, app.count, app.author.name, app.author.iconURL, new Date(), id);
-        partnerlog.send({ embed });
+        appMsg.edit({ embed });
       });
     });
   }

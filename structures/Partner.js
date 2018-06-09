@@ -53,7 +53,7 @@ class Partner extends Command {
     return embed;
   }
 
-  async buildPartnerApp(client, guild, invite, count, reason, author) {
+  async buildPartnerApp(client, invite, count, reason, author) {
     const setGuild = '335951728560046080';
     const settings = client.settings.get(setGuild);
     const appNumber = await this.appNumber(client, this.client.guilds.get(setGuild).channels.find('name', settings.partnerLog));
