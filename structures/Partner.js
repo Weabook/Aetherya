@@ -46,7 +46,7 @@ class Partner extends Command {
     const { RichEmbed } = require('discord.js');
     const embed = new RichEmbed()
       .setAuthor(author, authorAvatar)
-      .setDescription(`**Invite Link:** ${invite}\n**Member Count:** ${count} Members\n**Status:** Approved`)
+      .setDescription(`**Invite Link:** ${invite}\n**Member Count:** ${count} Members\n**Status:** Denied`)
       .setFooter(`Application ${appNumber}`)
       .setColor(color)
       .setTimestamp(timestamp);

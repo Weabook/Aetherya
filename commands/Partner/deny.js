@@ -34,7 +34,7 @@ class Deny extends Partner {
         app.count = app.description.split(' ')[5];
         app.authorID = app.author.name.split('(')[1].split(')')[0];
       
-        await this.client.users.get(app.authorID).send(reason);
+        await this.client.users.get(app.authorID).send(`Your partner application, application #${id}, was denied. A message was attached, \`${reason.join(' ')}\``);
         const embed = await this.appDeny('0xfe908a', app.invite, app.count, app.author.name, app.author.iconURL, new Date(), id);
         appMsg.edit({ embed });
       });
