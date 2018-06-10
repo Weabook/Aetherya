@@ -31,7 +31,6 @@
     "enmap-level": "^2.1.0",
     "express": "^4.16.3",
     "express-session": "^1.15.6",
-    "fs": "0.0.1-security",
     "fs-nextra": "^0.3.2",
     "hastebin.js": "0.0.1",
     "helmet": "^3.12.0",

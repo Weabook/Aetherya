@@ -1,7 +1,7 @@
 const Command = require('../../structures/Command.js');
 const Stopwatch = require('../../util/Stopwatch.js');
 const { inspect } = require('util');
-const fs = require('fs');
+const fs = require('fs-nextra');
 
 class Eval extends Command {
   constructor(client) {
@@ -46,7 +46,7 @@ class Eval extends Command {
         if (message.flags[0] === 'file' || message.flags[0] === 'f') {
           stopwatch.stop();
           const time = this.formatTime(syncTime, asyncTime);
-          const file = fs.writeFileSync('eval.js', output);
+          const file = fs.writeFile('eval.js', output);
           await message.channel.send({ file: 'eval.js' });
           await message.channel.send(`\`\`\`${time}\`\`\``);
         } 
@@ -54,7 +54,7 @@ class Eval extends Command {
         if (message.flags[0] === 'file-silent' || message.flags[0] === 'filesilent' || message.flags[0] === 'fs') {
           stopwatch.stop();
           const time = this.formatTime(syncTime, asyncTime);
-          const file = fs.writeFileSync('eval.js', output);
+          const file = fs.writeFile('eval.js', output);
           await message.author.send({ file: 'eval.js' });
           await message.author.send(`${time}`);
         }
