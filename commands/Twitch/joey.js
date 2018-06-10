@@ -11,8 +11,6 @@ class Joey extends Command {
 
   async run(message, args, level) {
     const twitch = this.client.emojis.get('455064742935920640');
-    const twitter = this.client.emojis.get('455064792168660992');
-    const instagram = this.client.emojis.get('455064814990131210');
     const discord = this.client.emojis.get('455064839606370316');
     const youtube = this.client.emojis.get('455064867292839936');
 
