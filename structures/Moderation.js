@@ -28,13 +28,25 @@ class Moderation extends Command {
     try {
       const modBot = message.guild.me;
       const id = await this.verifyUser(user);
-      const target = await message.guild.fetchMember(id).catch(() => { message.channel.send(`${message.author}, |\`❓\`| Cannot find member in guild.`); });
-      if (target.highestRole.position >= modBot.highestRole.position) message.channel.send(`${message.author}, |\`🛑\`| You cannot perform that action on someone of equal, or higher role.`);
+      const target = await message.guild.fetchMember(id).catch(() => { return message.channel.send(`${message.author}, |\`❓\`| Cannot find member in guild.`); });
+      if (target.highestRole.position >= modBot.highestRole.position) return message.channel.send(`${message.author}, |\`🛑\`| You cannot perform that action on someone of equal, or higher role.`);
       if (message.author.id === id) return message.channel.send(`${message.author}, |\`🛑\`| You cannot moderate yourself.`);
       const author = target.user;
       const member = target;
       const msg = { author:author, member:member, guild: message.guild, client: this.client, channel: message.channel };
       if (level <= this.client.permlevel(msg)) return message.channel.send(`${message.author}, |\`🛑\`| You cannot perform that action on someone of equal, or a higher permission level.`);
+      return target;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async hackCheck(message, user, level) {
+    try {
+      const modBot = message.guild.me;
+      const id = await this.verifyUser(user);
+      const target = await this.client.fetchUser(id).catch(() => { message.channel.send(`${message.author}, |\`❓\`| I cannot fetch that member.`); });
+      if (message.author.id === id) return message.channel.send(`${message.author}, |\`🛑\`| You cannot moderate yourself.`);
       return target;
     } catch (error) {
       throw error;
@@ -93,6 +105,16 @@ class Moderation extends Command {
     return guild.channels.find('name', settings.modLogChannel).send({embed});
   }
   
+  async buildHackLog(client, guild, action, target, mod, reason) {
+    const settings = client.settings.get(guild.id);
+    const caseNumber = await this.caseNumber(client, guild.channels.find('name', settings.modLogChannel));
+    const thisAction = this.actions[action];
+    const moderee = await client.fetchUser(target);
+    if (reason.length < 1) reason = `Awaiting moderator's input. Use ${settings.prefix}reason ${caseNumber} <reason>.`;
+    const embed = await this.caseEmbed(thisAction.color, `**Action:** ${thisAction.display}\n**Target:** ${moderee.username} (${moderee.id})\n**Reason:** ${reason}`,`${mod.tag} (${mod.id})`, new Date(), `Case ${caseNumber}`);
+    return guild.channels.find('name', settings.modLogChannel).send({embed});
+  }
+
   async infractionCreate(client, guildID, targetID, modID, action, reason) {
     const conn = await this.client.db.acquire();
     try {
