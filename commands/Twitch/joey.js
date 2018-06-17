@@ -10,11 +10,19 @@ class Joey extends Command {
   }
 
   async run(message, args, level) {
-    const twitch = this.client.emojis.get('455064742935920640');
-    const discord = this.client.emojis.get('455064839606370316');
-    const youtube = this.client.emojis.get('455064867292839936');
+    const { streamChannel } = this.client.settings.get(message.guild.id);
+    const desc = args.join(' ');
 
-    message.channel.send(`**Background**\n\nJoey is a content creator from the US. He mainly creates videos on YouTube but isn\'t shy to stream occasionally. Streams include Minecraft and Super Mario World speed runs, and sometimes show off his artistic talents. Joey is also the biggest Nintendo fan.\n\n${twitch} **»** <https://www.twitch.tv/goldmanjh>\n${youtube} **»** <https://www.youtube.com/channel/UCslEBSxIeTLx2yjsf-gopPw>\n${discord} **»** https://discordapp.com/invite/gy9sfkt`);
+    const channel = message.guild.channels.find('name', streamChannel);
+    if (!channel) return message.error(undefined, `I cannot find the \`${channel}\` channel.`);
+
+    const role = message.guild.roles.find('name', 'Joey\'s Stream');
+    if (!role) return message.error(undefined, `I cannot find the \`${role}\` role.`);
+    if (role.mentionable === false) await role.edit({ mentionable: true });
+
+    await channel.send(`⸤ ${role} ⸣ ${desc}\nYou can tune in at https://www.twitch.tv/goldmanjh\n\nIf you would like to un-/assign this role, head on over to #bot_channel and do \`_selfassign Joey\'s Stream\``);
+
+    await role.edit({ mentionable: false });
   }
 }
 

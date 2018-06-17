@@ -1,11 +1,11 @@
 const Command = require('../../structures/Command.js');
 
-class Announcement extends Command {
+class Announc extends Command {
   constructor(client) {
     super(client, {
-      name: 'announcement',
+      name: 'announce',
       description: 'Posts an announcement.',
-      usage: 'announcement <role name> <announcement>',
+      usage: 'announce <role name> <announcement>',
       extended: '<role name> must be correctly spelt, otherwise it will throw an error.',
       botPerms: ['MANAGE_ROLES'],
       permLevel: 'Moderator'
@@ -29,4 +29,4 @@ class Announcement extends Command {
   }
 }
 
-module.exports = Announcement;
+module.exports = Announce;

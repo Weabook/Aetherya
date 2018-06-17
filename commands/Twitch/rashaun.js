@@ -4,18 +4,24 @@ class Rashaun extends Command {
   constructor(client) {
     super(client, {
       name: 'rashaun',
-      description: 'Get some information on one of our broadcasters, Rashaun.',
-      permLevel: 'User'
+      permLevel: 'Family'
     });
   }
 
   async run(message, args, level) {
-    const twitch = this.client.emojis.get('455064742935920640');
-    const twitter = this.client.emojis.get('455064792168660992');
-    const instagram = this.client.emojis.get('455064814990131210');
-    const discord = this.client.emojis.get('455064839606370316');
+    const { streamChannel } = this.client.settings.get(message.guild.id);
+    const desc = args.join(' ');
 
-    message.channel.send(`**Background**\n\nRashaun lives in the US and streams whatever interests him. Usually he likes to play first person shooters like Borderlands 2 and Far Cry, but also found his joy in the Battle Royale hit of Fortnite. Other games include Skyrim, GTA, and Dishonored.\n\n${twitch} **»** <https://www.twitch.tv/reshayshay>\n${twitter} **»** <https://twitter.com/Reshayshay1>\n${instagram} **»** <https://www.instagram.com/reshayshay>\n${discord} **»** https://discordapp.com/invite/ggFrzgu`);
+    const channel = message.guild.channels.find('name', streamChannel);
+    if (!channel) return message.error(undefined, `I cannot find the \`${channel}\` channel.`);
+
+    const role = message.guild.roles.find('name', 'Rashaun\'s Stream');
+    if (!role) return message.error(undefined, `I cannot find the \`${role}\` role.`);
+    if (role.mentionable === false) await role.edit({ mentionable: true });
+
+    await channel.send(`⸤ ${role} ⸣ ${desc}\nYou can tune in at https://www.twitch.tv/reshayshay\n\nIf you would like to un-/assign this role, head on over to #bot_channel and do \`_selfassign Rashaun\'s Stream\``);
+
+    await role.edit({ mentionable: false });
   }
 }
 

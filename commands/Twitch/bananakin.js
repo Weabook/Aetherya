@@ -4,16 +4,24 @@ class Bananakin extends Command {
   constructor(client) {
     super(client, {
       name: 'bananakin',
-      description: 'Get some information on one of our broadcasters, Bananakin.',
-      permLevel: 'User'
+      permLevel: 'Family'
     });
   }
 
   async run(message, args, level) {
-    const twitch = this.client.emojis.get('455064742935920640');
-    const discord = this.client.emojis.get('455064839606370316');
+    const { streamChannel } = this.client.settings.get(message.guild.id);
+    const desc = args.join(' ');
 
-    message.channel.send(`**Background**\n\nBananakin streams a combination of retro and recent games. He is based in the US and is a huge fan of Nintendo and Capcom, so don't be surprised to see him play something from their franchises. Games he's streamed previously include Mega Man, Monster Hunter, and Pokémon.\n\n${twitch} **»** <https://www.twitch.tv/bananakin_skywalker>\n${discord} **»** <https://discordapp.com/invite/ufurpCD>`);
+    const channel = message.guild.channels.find('name', streamChannel);
+    if (!channel) return message.error(undefined, `I cannot find the \`${channel}\` channel.`);
+
+    const role = message.guild.roles.find('name', 'Bananakin\'s Stream');
+    if (!role) return message.error(undefined, `I cannot find the \`${role}\` role.`);
+    if (role.mentionable === false) await role.edit({ mentionable: true });
+    
+    await channel.send(`⸤ ${role} ⸣ ${desc}\nYou can tune in at https://www.twitch.tv/bananakin_skywalker\n\nIf you would like to un-/assign this role, head on over to #bot_channel and do \`_selfassign Bananakin\'s Stream\``);
+
+    await role.edit({ mentionable: false });
   }
 }
 

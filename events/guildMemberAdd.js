@@ -10,7 +10,7 @@ module.exports = class {
     const guild = member.guild;
     const settings = this.client.settings.get(guild.id);
 
-    const roles = ['Felic\'s Stream', 'Lady\'s Stream', 'aria\'s Stream', 'v i e w e r s', 'Bananakin\'s Stream', 'Rashaun\'s Stream', 'Updates', 'Shoutouts'];
+    const roles = ['Felics\' Stream', 'aria\'s Stream', 'v i e w e r s', 'Bananakin\'s Stream', 'Rashaun\'s Stream', 'Updates', 'Shoutouts'];
 
     roles.forEach(async role => {
       const add = await guild.roles.find('name', role);
