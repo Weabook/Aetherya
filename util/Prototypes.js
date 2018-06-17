@@ -30,12 +30,22 @@ Message.prototype.error = function(message, content, embed, options = {}) {
   return this.channel.send(`${this.author} \`|❌|\` ${content}`, embed);
 };
 
-User.prototype.tempMute = async function(client, message, user, time) {
+User.prototype.tempOMute = async function(client, message, user, time) {
   const { muteRole } = client.settings.get(message.guild.id);
   await user.addRole(muteRole).then(() => {
     user.removeRole(muteRole);
     console.log('Done!');
   }, ms(time));
+};
+
+User.prototype.tempMute = async function(client, message, user, time) {
+  const { muteRole } = client.settings.get(message.guild.id);
+  const role = message.guild.roles.find('name', muteRole);
+  await user.addRole(role).then(() => {
+    setTimeout(() => {
+      user.removeRole(role);
+    }, ms(time));
+  });
 };
 
 Channel.prototype.lock = async function(client, message, time) {

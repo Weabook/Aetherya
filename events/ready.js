@@ -26,6 +26,8 @@ module.exports = class {
     // Log that the bot has logged in.
     this.client.log('Log', `${this.client.user.tag}, ready to serve ${this.client.users.size} users in ${this.client.guilds.size} servers on version ${bot.version}.`, 'Ready!');
 
+    await this.client.build(this.client, '436717873734483978');
+
     // Filter through the guilds to see if a guild was added while the bot was offline.
     // If so, create the guilds settings.
     this.client.guilds.filter(g => !this.client.settings.has(g.id)).forEach(g => this.client.settings.set(g.id, this.client.config.defaultSettings));

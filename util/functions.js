@@ -1,6 +1,25 @@
-const { Message } = require('discord.js');
+const moment = require('moment');
+const bot = require('../package.json');
 
 module.exports = (client) => {
+
+  /*
+
+  A stupidly simple function to create an arbitrary build ID.
+
+  */
+
+  client.build = async (client, channel) => {
+    function makeid() {
+      var text = '';
+      var possible = 'abcdefghijklmnopqrstuvwxyz0123456789';
+      for (var i = 0; i < 5; i++)
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+      return text;
+    }
+    const build = makeid();
+    client.channels.get(channel).send(`\`[${moment(new Date()).format('h:mm:ss')}]\` Aetherya has started on version \`${bot.version}\` | Build \`${build}\``);
+  };
 
   /*
 
@@ -13,9 +32,9 @@ module.exports = (client) => {
     duration = duration * 1000;
     const ratelimits = client.ratelimits.get(message.author.id) || {}; //get the ENMAP first.
     if (!ratelimits[key]) ratelimits[key] = Date.now() - duration; //see if the command has been run before if not, add the ratelimit
-    const differnce = Date.now() - ratelimits[key]; //easier to see the difference
-    if (differnce < duration) { //check the if the duration the command was run, is more than the cooldown
-      return moment.duration(duration - differnce).format('D [days], H [hours], m [minutes], s [seconds]', 1); //returns a string to send to a channel
+    const difference = Date.now() - ratelimits[key]; //easier to see the difference
+    if (difference < duration) { //check the if the duration the command was run, is more than the cooldown
+      return moment.duration(duration - difference).format('D [days], H [hours], m [minutes], s [seconds]', 1); //returns a string to send to a channel
     } else {
       ratelimits[key] = Date.now(); //set the key to now, to mark the start of the cooldown
       client.ratelimits.set(message.author.id, ratelimits); //set it

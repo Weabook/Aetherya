@@ -1,6 +1,6 @@
 const Command = require('../../structures/Command.js');
 
-class Announc extends Command {
+class Announce extends Command {
   constructor(client) {
     super(client, {
       name: 'announce',
