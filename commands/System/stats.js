@@ -36,7 +36,7 @@ class Stats extends Command {
 • Host       :: ${host}
 
 = HOST USAGE =
-• CPU Load   :: ${os.loadavg()[2]}%
+• CPU Load   :: ${os.loadavg()[0].toFixed(2)}%
 • RAM Usage  :: ${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} MB
 `, {code: 'asciidoc'});
   }

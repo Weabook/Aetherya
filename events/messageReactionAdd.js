@@ -35,5 +35,13 @@ module.exports = class {
         .setColor(0xffc1e2);
       await message.guild.channels.find('name', settings.musicLog).send({ embed });
     }
+    
+    // if (reaction.emoji.name == '🎵') {
+    // if () 
+    // }
+
+    // if (reaction.emoji.name == '📌') {
+    //   if ()
+    // }
   }
 };

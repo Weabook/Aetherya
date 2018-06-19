@@ -6,6 +6,7 @@ module.exports = class {
   }
 
   async run(member) {
+    let str = '';
     const guild = member.guild;
     const settings = this.client.settings.get(guild.id);
 
@@ -15,7 +16,11 @@ module.exports = class {
 
     const channel = guild.channels.find('name', settings.memberLogs);
     if (!channel) return;
-    const fromNow = moment(member.joinedTimestamp).fromNow();
-    channel.send(`📤 ${member.user.tag} (${member.user.id}) left, they had joined: ${fromNow}`);
+    for (let i = 0; i < member._roles.size; i++) {
+      const role = guild.roles.get(member._roles[i]);
+      str += role.name;
+    }
+    
+    channel.send(`\`[${moment(new Date()).format('h:mm:ss')}]\` 📤 ${member.user.tag} (${member.user.id}) left\nThey had joined: ${moment(member.joinedTimestamp).format('m:d:h:mm:ss')}`);
   }
 };
