@@ -42,6 +42,15 @@ module.exports = class {
         this.client.users.get(reminder.id).send(`You asked me to remind you about: \`${reminder.reminder}\``);
         this.client.reminders.delete(`${reminder.id}-${reminder.reminderTimestamp}`);
       }); 
-    }, 60000); 
+    }, 60000);
+
+    // setInterval(() => {
+    //   const g = this.client.guilds.get('186004000963952640');
+    //   const rm = g.presences.filter(p => p.game !== null);
+    //   if (rm) {
+    //     console.log('Works 1');
+    //     const m = console.log(rm);
+    //   }
+    // }, 1500);
   }
 };
