@@ -10,6 +10,7 @@ module.exports = class {
   static run(client, message, level) {
     this.givePoints(client, message, level);
     this.antiInvite(client, message, level);
+    this.checkLevel(client, message, level);
   }
 
   static givePoints(client, message, level) {
@@ -55,5 +56,16 @@ module.exports = class {
       });
       message.channel.send(`${message.author} |\`⛔\`| Your message contained a server invite link, which this server prohibits.`);
     }
+  }
+
+  static checkLevel(client, message, level) {
+    if (message.channel.type !== 'text') return;
+    const score = client.points.get(`${message.guild.id}-${message.author.id}`);
+    if (score.level >= 5) {
+      const user = message.guild.members.get(message.author.id);
+      const role = message.guild.roles.find('name', 'f e a t h e r s');
+      user.addRole(role);
+      client.log('Log', `${message.author.username} has reached level 5 and obtained the \`f e a t h e r s\` role!`, 'Role');
+    } else return;
   }
 };
