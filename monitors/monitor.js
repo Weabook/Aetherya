@@ -65,7 +65,8 @@ module.exports = class {
       const user = message.guild.members.get(message.author.id);
       const role = message.guild.roles.find('name', 'f e a t h e r s');
       user.addRole(role);
-      client.log('Log', `${message.author.username} has reached level 5 and obtained the \`f e a t h e r s\` role!`, 'Role');
+      client.log('Log', `${message.author.username} has reached level 5 and obtained the f e a t h e r s role!`, 'Role');
+      message.channel.send(`${message.author.username} has reached level 5 and obtained the \`f e a t h e r s\` role!`).then(m => m.delete(30000));
     } else return;
   }
 };
