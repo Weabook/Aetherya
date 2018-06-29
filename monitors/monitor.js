@@ -60,6 +60,7 @@ module.exports = class {
 
   static checkLevel(client, message, level) {
     if (message.author.bot) return;
+    console.log(message.author);
     if (message.channel.type !== 'text') return;
     const score = client.points.get(`${message.guild.id}-${message.author.id}`);
     if (score.level >= 5) {
@@ -70,7 +71,6 @@ module.exports = class {
       // if (message.member.roles.has('399972162905047050')) return; // Testing Guild
       user.addRole(role);
       client.log('Log', `${message.author.username} has reached level 5 and obtained the f e a t h e r s role!`, 'Role');
-      message.channel.send(`${message.author.username} has reached level 5 and obtained the \`f e a t h e r s\` role!`).then(m => m.delete(30000));
     } else return;
   }
 };
