@@ -18,6 +18,7 @@ class Jumbo extends Command {
   }
 
   async run(message, args, level) {
+    if (!args[0]) return message.error(undefined, 'you need to provide an emote for me to jumbo it.').then(message.delete());
     try {
       const emote = discord.Util.parseEmoji(args[0]);
       if (emote.animated === true) {

@@ -21,6 +21,8 @@ module.exports = class {
       str += role.name;
     }
     
-    channel.send(`\`[${moment(new Date()).format('h:mm:ss')}]\` 📤 ${member.user.tag} (${member.user.id}) left\nThey had joined: ${moment(member.joinedTimestamp).format('m:d:h:mm:ss')}`);
+    const fromNow = moment(member.joinedTimestamp).fromNow();
+
+    channel.send(`\`[${moment(new Date()).format('h:mm:ss')}]\` 📤 ${member.user.tag} (${member.user.id}) left\nThey had joined: ${fromNow}`);
   }
 };
