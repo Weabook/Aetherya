@@ -197,6 +197,13 @@ module.exports = (client) => {
     });
   });
 
+  app.get('/dashboard/:guildID/commands', checkAuth, async (req, res) => {
+    const guild = client.guilds.get(req.params.guildID);
+    if (!guild) return res.status(404);
+    renderTemplate(res, req, 'guild/commands.ejs', {guild});
+    // res.redirect('/dashboard/'+req.params.guildID+'/commands');
+  });
+
   app.get('/dashboard/:guildID/members/list', checkAuth, async (req, res) => {
     const guild = client.guilds.get(req.params.guildID);
     if (!guild) return res.status(404);

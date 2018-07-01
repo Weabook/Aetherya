@@ -1,8 +1,15 @@
+# Files
 config.js
+.env
+
+# Folders
 /node_modules/
 /data/
 /Production/
 /dist/
-announcement
+
+# Commands
 commands/Moderation/tempmute.js
-.env
+
+# Dashboard
+frontend/templates/guild/commands.ejs
