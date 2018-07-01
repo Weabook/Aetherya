@@ -2,6 +2,7 @@ config.js
 /node_modules/
 /data/
 /Production/
+/dist/
 announcement
 commands/Moderation/tempmute.js
 .env

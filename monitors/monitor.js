@@ -61,6 +61,8 @@ module.exports = class {
   static checkLevel(client, message, level) {
     if (message.author.bot) return;
     if (message.channel.type !== 'text') return;
+    const settings = client.settings.get(message.guild.id);
+    if (message.content.startsWith(settings.prefix)) return;
     const score = client.points.get(`${message.guild.id}-${message.author.id}`);
     if (score.level >= 5) {
       const user = message.guild.members.get(message.author.id);
