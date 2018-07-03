@@ -1,11 +1,4 @@
 <%- include('../blocks/header', {bot, user, path}) %>
-<% const help = {};
-bot.commands.forEach((command) => {
-  const cat = command.help.category;
-  if (!help.hasOwnProperty(cat)) help[cat] = [];
-  help[cat].push(command);
-});
-%>
 <h2>Command Management</h2>
 <div class="row">
   <div class="col col-4">
@@ -14,7 +7,8 @@ bot.commands.forEach((command) => {
   <div class="col">
     <%- include('../blocks/guild-nav.ejs', {active: "commands", guild}) %>
     <form method="post">
-      <% for (command in bot.commands) { %>
+      <% const commands = bot.commands; 
+      for (command in commands) { %>
         <li class="list-group-item">
           <label class="sr-only" for="<%= command %>">
             <%= command %>
@@ -23,6 +17,7 @@ bot.commands.forEach((command) => {
               <div class="input-group-addon" style="width: 150px; text-align: right; margin: 0;">
                 <%= command %>
               </div>
+              <input type="text" class="form-control" style="text-align: left;" name="<%= command.help.name %>" id="<%= command %>" value="<% command.conf.enabled %>" placeholder="Enter <%= command.help.name %>">
           </div>
         </li>
       <% } %>

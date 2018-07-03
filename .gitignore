@@ -6,7 +6,7 @@ config.js
 /node_modules/
 /data/
 /Production/
-/dist/
+/frontend/dist/
 
 # Commands
 commands/Moderation/tempmute.js

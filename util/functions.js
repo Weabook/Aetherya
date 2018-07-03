@@ -19,6 +19,7 @@ module.exports = (client) => {
     }
     const build = makeid();
     client.channels.get(channel).send(`\`[${moment(new Date()).format('h:mm:ss')}]\` Aetherya has started on version \`${bot.version}\` | Build \`${build}\``);
+    return build;
   };
 
   /*

@@ -23,10 +23,12 @@ module.exports = class {
 
     require('../util/dashboard.js')(this.client);
 
+    // Log the build. For debugging purposes.
+    const build = await this.client.build(this.client, '436717873734483978');
+    this.client.log('Log', `Built client, on build ${build}.`, 'Built');
+
     // Log that the bot has logged in.
     this.client.log('Log', `${this.client.user.tag}, ready to serve ${this.client.users.size} users in ${this.client.guilds.size} servers on version ${bot.version}.`, 'Ready!');
-
-    await this.client.build(this.client, '436717873734483978');
 
     // Filter through the guilds to see if a guild was added while the bot was offline.
     // If so, create the guilds settings.
@@ -46,11 +48,12 @@ module.exports = class {
 
     // setInterval(() => {
     //   const g = this.client.guilds.get('186004000963952640');
-    //   const rm = g.presences.filter(p => p.game !== null);
-    //   if (rm) {
-    //     console.log('Works 1');
-    //     const m = console.log(rm);
-    //   }
+    //   const rm = g.presences.filter(p => p.game !== null && p.game.url !== null && p.game.url == 'https://www.twitch.tv/felixinfintum' || p.game.url == 'https://www.twitch.tv/goldmanjh' || p.game.url == 'https://www.twitch.tv/reshayshay' || p.game.url == 'https://www.twitch.tv/ariahane' || p.game.url == 'https://www.twitch.tv/aetherya_' && console.log(p));
+    //   // console.log(rm);
+    //   // if (rm) {
+    //   // console.log('Works 1');
+    //   // const m = console.log(rm);
+    //   // }
     // }, 1500);
   }
 };
