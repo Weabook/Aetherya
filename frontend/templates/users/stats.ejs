@@ -9,11 +9,15 @@
       <div class="card" style="width: 100%;">
         <%- include('../blocks/user-nav', {active: "stats", user}) %>
         <ul class="list-group list-group-flush" style="width: 100%">
-          <li class="list-group-item" style="width: 100%"><strong>User</strong> : <i class="far fa-fw fa-user" aria-hidden="true"></i> <%= `${user.tag}` %></li>
+          <li class="list-group-item" style="width: 100%"><strong>User Tag | User ID</strong> : <i class="fas fa-address-card" aria-hidden="true"></i> <%= `${user.tag} | ${user.id}` %></li>
           <li class="list-group-item" style="width: 100%"><strong>Created</strong> : <i class="far fa-fw fa-calendar-alt" aria-hidden="true"></i><%= `${user.createdAt}` %></li>
           <li class="list-group-item" style="width: 100%"><strong>Shared Servers</strong>: <i class="fas fa-fw fa-server"></i> <%= bot.guilds.filter(g => g.members.has(user.id)).size %></li>
         </ul>
       </div>
     </div>
   </div>
+  <script type="text/javascript">
+    var ts = parseInt($("#userCreate").text());
+    $("#userCreate").html(`<strong>Created</strong> : ${moment(ts).format('MMMM Do YYYY (h:mm a)')}`)
+  </script>
 <% include ../blocks/footer %>

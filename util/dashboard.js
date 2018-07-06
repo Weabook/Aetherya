@@ -18,6 +18,8 @@ const helmet = require('helmet');
 
 const md = require('marked');
 
+const randomFile = require('../util/randomFile.js');
+
 module.exports = (client) => {
   const dataDir = path.resolve(`${process.cwd()}${path.sep}frontend`);
   const templateDir = path.resolve(`${dataDir}${path.sep}templates`);
@@ -92,6 +94,11 @@ module.exports = (client) => {
     next();
   }, passport.authenticate('discord'));
 
+  app.get('/logout', (req, res) => {
+    req.logout();
+    res.redirect('/');
+  });
+
   app.get('/callback', passport.authenticate('discord', { failureRedirect: '/autherror' }), (req, res) => {
     if (req.user.id === client.appInfo.owner.id) {
       req.session.isAdmin = true;
@@ -149,13 +156,13 @@ module.exports = (client) => {
     renderTemplate(res, req, 'admin.ejs');
   });
 
-  app.get('/dashboard/users/:userID', checkAuth, (req, res) => {
+  app.get('/users/:userID', checkAuth, (req, res) => {
     const perms = Discord.EvaluatedPermissions;
     const user = client.users.get(req.params.userID);
     renderTemplate(res, req, 'users/manage.ejs', {perms});
   });
 
-  app.get('/dashboard/users/:userID/stats', checkAuth, (req, res) => {
+  app.get('/users/:userID/stats', checkAuth, (req, res) => {
     const user = client.users.get(req.params.userID);
     if (!user) return res.status(404);
     renderTemplate(res, req, 'users/stats.ejs', {user});
@@ -275,6 +282,26 @@ module.exports = (client) => {
     if (!isManaged && !req.session.isAdmin) res.redirect('/');
     client.settings.delete(guild.id);
     res.redirect('/dashboard/'+req.params.guildID);
+  });
+
+  app.get('/api/kpop/yezi', (req, res) => {
+    randomFile('./frontend/assets/kpop/yezi', (err, file) => {
+      if (err) {
+        res.status(500).json({ code: 500, message: 'Something went wrong. Please try again later.' });
+        client.log('INTERNAL ERROR', err, 'API ERROR');
+      }
+      res.status(200).json({ url: `https://localhost/api/kpop/yezi/${file}` });
+    });
+  });
+
+  app.get('/api/animals/cat', (req, res) => {
+    randomFile('./frontend/assets/animals/cats', (err, file) => {
+      if (err) {
+        res.status(500).json({ code: 500, message: 'Something went wrong. Please try again later.' });
+        client.log('INTERNAL ERROR', err, 'API ERROR');
+      }
+      res.status(200).json({ url: `https://localhost/api/animals/cat/${file}` });
+    });
   });
   
   client.site = app.listen(client.config.dashboard.port);

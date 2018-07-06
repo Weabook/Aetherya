@@ -59,6 +59,7 @@ module.exports = class {
   }
 
   static checkLevel(client, message, level) {
+    if (message.guild.id === '335951728560046080') return;
     if (message.author.bot) return;
     if (message.channel.type !== 'text') return;
     const settings = client.settings.get(message.guild.id);

@@ -1,5 +1,20 @@
-// Obtain Node.js's current version, and determine if it is above 8.5.0. If not, throw an error, and refuse to start.
-// if (process.version.slice(1) < '8.5.0') throw new Error('Node 8.5.0 or higher is required. Node 8.9.4 is suggested. Update Node on your system.');
+
+/*
+
+
+
+  ___       _   _                           
+ / _ \     | | | |                          
+/ /_\ \ ___| |_| |__   ___ _ __ _   _  __ _ 
+|  _  |/ _ \ __| '_ \ / _ \ '__| | | |/ _` |
+| | | |  __/ |_| | | |  __/ |  | |_| | (_| |
+\_| |_/\___|\__|_| |_|\___|_|   \__, |\__,_|
+                                 __/ |      
+                                |___/       
+
+
+
+*/
 
 // Declare dependencies.
 require('dotenv').config();
