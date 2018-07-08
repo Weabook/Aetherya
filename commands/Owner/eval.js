@@ -66,7 +66,7 @@ class Eval extends Command {
         }
       } else {
         try {
-          const link = await this.client.haste.post(output);
+          const link = await this.client.util.haste.post(output);
           message.channel.send(`Output was to long so it was uploaded to hastebin ${link}`);
         } catch (error) {
           message.channel.send(`I tried to upload the output to hastebin but encountered this error \`${error.name}:${error.message}\``);

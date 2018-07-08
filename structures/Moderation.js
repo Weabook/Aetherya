@@ -116,9 +116,9 @@ class Moderation extends Command {
   }
 
   async infractionCreate(client, guildID, targetID, modID, action, reason) {
-    const conn = await this.client.db.acquire();
+    const conn = await this.client.util.db.acquire();
     try {
-      await this.client.db.createInfraction(conn, target, guild, action, reason, mod);
+      await this.client.util.db.createInfraction(conn, target, guild, action, reason, mod);
     } finally {
       conn.release();
     }

@@ -18,8 +18,6 @@ const helmet = require('helmet');
 
 const md = require('marked');
 
-const randomFile = require('../util/randomFile.js');
-
 module.exports = (client) => {
   const dataDir = path.resolve(`${process.cwd()}${path.sep}frontend`);
   const templateDir = path.resolve(`${dataDir}${path.sep}templates`);
@@ -285,23 +283,31 @@ module.exports = (client) => {
   });
 
   app.get('/api/kpop/yezi', (req, res) => {
-    randomFile('./frontend/assets/kpop/yezi', (err, file) => {
-      if (err) {
-        res.status(500).json({ code: 500, message: 'Something went wrong. Please try again later.' });
-        client.log('INTERNAL ERROR', err, 'API ERROR');
-      }
-      res.status(200).json({ url: `https://localhost/api/kpop/yezi/${file}` });
-    });
+    if (client.config.apiKeys.includes(req.headers.authorization)) {
+      client.util.randomFile('./frontend/assets/kpop/yezi', (err, file) => {
+        if (err) {
+          res.status(500).json({ code: 500, message: 'Something went wrong. Please try again later.' });
+          client.log('INTERNAL ERROR', err, 'API ERROR');
+        }
+        res.status(200).json({ url: `https://cdn.aetherya.stream/api/kpop/yezi/${file}` });
+      });
+    } else {
+      return res.status(403).send({ message: 'The maze is not for you. In other words, apply for an API key.' });
+    }
   });
 
   app.get('/api/animals/cat', (req, res) => {
-    randomFile('./frontend/assets/animals/cats', (err, file) => {
-      if (err) {
-        res.status(500).json({ code: 500, message: 'Something went wrong. Please try again later.' });
-        client.log('INTERNAL ERROR', err, 'API ERROR');
-      }
-      res.status(200).json({ url: `https://localhost/api/animals/cat/${file}` });
-    });
+    if (client.config.apiKeys.includes(req.headers.authorization)) {
+      client.util.randomFile('./frontend/assets/animals/cats', (err, file) => {
+        if (err) {
+          res.status(500).json({ code: 500, message: 'Something went wrong. Please try again later.' });
+          client.log('INTERNAL ERROR', err, 'API ERROR');
+        }
+        res.status(200).json({ url: `https://cdn.aetherya.stream/api/animals/cat/${file}` });
+      });
+    } else {
+      return res.status(403).send({ message: 'The maze is not for you. In other words, apply for an API key.' });
+    }
   });
   
   client.site = app.listen(client.config.dashboard.port);

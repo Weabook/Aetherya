@@ -40,7 +40,6 @@ class Aetherya extends Client {
 
     this.config = require('./config.js');
 
-    this.haste = new Hastebin();
     this.api = new Idiot.Client(process.env.IDIOT, { dev: true });
 
     this.commands = new Enmap();
@@ -48,12 +47,16 @@ class Aetherya extends Client {
     this.ratelimits = new Enmap();
     this.invspam = new Enmap();
     
-    this.settings = new Enmap({ provider: new EnmapLevel({ name: 'settings'}) });
-    this.reminders = new Enmap({ provider: new EnmapLevel(({ name: 'reminders'}) )});
-    this.rolelist = new Enmap({ provider: new EnmapLevel({ name: 'rolelist'}) });
-    this.points = new Enmap({provider: new EnmapLevel({name: 'points'})});
+    this.settings = new Enmap({ provider: new EnmapLevel({ name: 'settings' }) });
+    this.reminders = new Enmap({ provider: new EnmapLevel(({ name: 'reminders' }) )});
+    this.rolelist = new Enmap({ provider: new EnmapLevel({ name: 'rolelist' }) });
+    this.points = new Enmap({ provider: new EnmapLevel({name: 'points' }) });
 
-    this.db = new backend(this.config.dbCredentials);
+    this.util = {
+      randomFile: require('./util/randomFile.js'),
+      haste: new Hastebin(),
+      db: new backend(this.config.dbCredentials)
+    };
   }
 
   // Create the permission level functions. Allows for restricting commands to certain permission levels created in config.js.
@@ -160,6 +163,7 @@ class Aetherya extends Client {
 const client = new Aetherya({
   fetchAllMembers: true
 });
+
 console.log(client.config.permLevels.map(p => `${p.level} ${p.name}`));
 
 client.on('error', err => console.log(err));
