@@ -7,6 +7,8 @@ module.exports = class {
   }
 
   async run(member) {
+    this.client.user.setActivity(`for ${this.client.users.size} astronauts`, { url: 'https://www.twitch.tv/aetherya_', type: 'STREAMING'});
+    
     const guild = member.guild;
     const settings = this.client.settings.get(guild.id);
 
