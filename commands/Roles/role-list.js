@@ -7,12 +7,13 @@ class RoleList extends Command {
       description: 'Lists the self-assignable list.',
       category: 'Roles',
       usage: 'role-list',
-      permLevel: 'User'
+      aliases: ['rolelist'],
+      permLevel: 'Bot Admin'
     });
   }
 
   async run(message, args, level) {
-    const roleList = ['Felic\'s Stream', 'Lady\'s Stream', 'aria\'s Stream', 'v i e w e r s', 'Bananakin\'s Stream', 'Rashaun\'s Stream', 'Updates', 'Shoutouts'];
+    const roleList = ['Felic\'s Stream', 'Lady\'s Stream', 'aria\'s Stream', 'Bananakin\'s Stream', 'Rashaun\'s Stream', 'Updates', 'Shoutouts'];
 
     message.channel.send(`= Roles = \n${roleList.join('\n')}`, { code: 'asciidoc' });
   }

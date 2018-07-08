@@ -40,7 +40,29 @@ module.exports = class {
   static antiInvite(client, message, level) {
     if (message.channel.type !== 'text') return;
     if (level > 0) return;
-    if (/(discord\.(gg|io|me|li)\/.+|discordapp\.com\/invite\/.+)/i.test(message.content)) {
+    
+    const whitelist = [
+      'discord.gg/discord-testers',
+      'discordapp.com/invite/discord-testers',
+      'discord.gg/discord-feedback',
+      'discordapp.com/invite/discord-feedback',
+      'discord.gg/discord-api',
+      'discordapp.com/invite/discord-api',
+      'discord.gg/discord-linux',
+      'discordapp.com/invite/discord-linux',
+      'discord.gg/events',
+      'discordapp.com/invite/events',
+      'discord.gg/mmfyqEQ',
+      'discordapp.com/invite/mmfyqEQ'
+    ];
+
+    const invite = /(discord\.(gg|io|me|li)\/.+|discordapp\.com\/invite\/.+)/i;
+    const test = invite.exec(message.content);
+    
+    if (test === null) return;
+    if (whitelist.includes(test[0])) return console.log('Fired to part 2.');
+    
+    if (test) {
       message.delete().then(() => {
         let count = 1;
         const spammer = `${message.guild.id}-${message.author.id}`;

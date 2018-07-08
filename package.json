@@ -6,7 +6,10 @@
     "test": "eslint .",
     "fix": "eslint --fix .",
     "start": "node index.js",
-    "reset": "bash util/scripts/dataRefresher.sh"
+    "resetData": "bash util/scripts/settingsRefresher.sh",
+    "resetFrontend": "bash util/scripts/frontendRefresher.sh",
+    "resetPoints": "bash util/scripts/pointsRefresher.sh",
+    "resetReminders": "bash util/scripts/remindersRefresher.sh"
   },
   "repository": {
     "type": "git",

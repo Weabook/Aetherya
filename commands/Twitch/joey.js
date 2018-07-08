@@ -5,7 +5,7 @@ class Joey extends Command {
     super(client, {
       name: 'joey',
       description: 'Get some information on one of our broadcasters, Joey.',
-      permLevel: 'User'
+      permLevel: 'Family'
     });
   }
 
