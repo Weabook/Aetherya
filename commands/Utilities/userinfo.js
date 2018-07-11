@@ -14,20 +14,24 @@ class UserInfo extends Command {
   }
 
   async run(message, args, level) {
+    const member = message.mentions.members.first() || message.guild.member(args[0]) || message.member;
+    
     const embed = new RichEmbed()
-      .addField('Username', `${msg.author.tag}`, true)
-      .addField('ID', `${msg.author.id}`, true)
+      .addField('Username', `${member.user.tag}`, true)
+      .addField('ID', `${member.user.id}`, true)
       .setColor(3447003)
-      .setThumbnail(`${msg.author.avatarURL}`)
-      .setURL(`${msg.author.avatarURL}`)
-      .addField('Currently', `${msg.author.presence.status.toUpperCase()}`, true)
-      .addField('Game', `${msg.author.presence.game === null ? 'No Game' : msg.author.presence.game.name}`, true)
-      .addField('Joined Discord', `${moment(msg.author.createdAt).format('MM.DD.YY')}`, true)
-      .addField('Joined Server', `${moment(msg.member.joinedAt).format('MM.DD.YY')}`, true)
-      .addField('Roles', `${msg.member.roles.filter(r => r.name).size}`, true)
-      .addField('Is Bot', `${msg.author.bot.toString().toUpperCase()}`, true)
+      .setThumbnail(`${member.user.avatarURL}`)
+      .setURL(`${member.user.avatarURL}`)
+      .addField('Currently', `${member.presence.status.toProperCase()}`, true)
+      .addField('Game', `${member.presence.game === null ? 'No Game' : member.presence.game.name}`, true)
+      .addField('Joined Discord', `${moment(member.user.createdAt).format('MM.DD.YY')}`, true)
+      .addField('Joined Server', `${moment(member.user.joinedAt).format('MM.DD.YY')}`, true)
+      .addField('Roles', `${member.roles.filter(r => r.name).size}`, true)
+      .addField('Is Bot', `${member.user.bot.toString().toProperCase()}`, true)
       .setTimestamp()
       .setFooter('');
+
+    message.channel.send({ embed });
   }
 }
 
