@@ -57,6 +57,11 @@ class Aetherya extends Client {
       haste: new Hastebin(),
       db: new backend(this.config.dbCredentials)
     };
+
+    this.session = {
+      messages: 0,
+      commands: 0
+    };
   }
 
   // Create the permission level functions. Allows for restricting commands to certain permission levels created in config.js.

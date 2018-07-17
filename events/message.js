@@ -16,6 +16,8 @@ module.exports = class {
     //  and not get into a spam loop (we call that "botception").
     if (message.author.bot) return;
 
+    await this.client.session.messages++;
+
     // Grab the settings for this server from the PersistentCollection
     // If there is no guild, get default conf (DMs)
     const defaults = this.client.config.defaultSettings;
@@ -84,7 +86,7 @@ This command requires level ${this.client.levelCache[cmd.conf.permLevel]} (${cmd
       }
     }
 
-    if (cmd.conf.enabled !== true) return;
+    if (cmd.conf.enabled !== true) return message.error('🛑', `the command ${cmd.help.name} is disabled on this server. Please ask an admin to enable it.`);
 
     // To simplify message arguments, the author's level is now put on level (not member, so it is supported in DMs)
     // The "level" command module argument will be deprecated in the future.
@@ -96,9 +98,6 @@ This command requires level ${this.client.levelCache[cmd.conf.permLevel]} (${cmd
       message.flags.push(args.shift().slice(1));
     }
     
-    // If the command exists, **AND** the user has permission, run it.
-    this.client.log('Log', `[${moment(message.createdAt).format('h:mm:ss')}] ${this.client.config.permLevels.find(l => l.level === level).name} ${message.author.username} (${message.author.id}) ran command ${cmd.help.name}`, 'CMD');
-
     // Uses the permCheck function, index.js lines 51-54, to let the user know if the bot is missing any required 
     // permissions for a command.
     if (message.channel.type === 'text') {      
@@ -106,9 +105,15 @@ This command requires level ${this.client.levelCache[cmd.conf.permLevel]} (${cmd
       if (mPerms.length) return message.channel.send(`The bot does not have the following permissions \`${mPerms.join(', ')}\``);
     }
 
+    // If the command exists, **AND** the user has permission, prepare to run it.
+    this.client.log('Log', `[${moment(message.createdAt).format('h:mm:ss')}] ${this.client.config.permLevels.find(l => l.level === level).name} ${message.author.username} (${message.author.id}) ran command ${cmd.help.name}`, 'CMD');
+
+    // Run the command.
     cmd.run(message, args, level).catch(error => {
       console.log(error);
       message.channel.send(error);
     });
+
+    await this.client.session.commands++;
   }
 };

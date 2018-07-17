@@ -19,49 +19,18 @@ class Profile extends Social {
     });
   }
 
-  async run(message, args, level) { 
+  async run(message, args, level) {
     if (message.guild) {
-      const key = `${message.guild.id}-${message.author.id}`;
+      const member = message.guild.member(message.mentions.users.first()) || message.guild.member(args[0]) || message.member;
+
+      const key = `${message.guild.id}-${member.id}`;
       if (!this.client.points.has(key)) {
         this.client.points.set(key, {
-          user: message.author.id, guild: message.guild.id, points: 0, level: 1
+          user: member.id, guild: message.guild.id, points:0, level: 1
         });
       }
 
-      await message.channel.send(new Attachment(await this.profile(message.member, this.client.points.get(key)), `profile-${message.author.id}.jpg`));
-    }
-  }
-
-  async newRun(message, args, level) {
-    if (message.guild) {
-      if (message.mentions.users.size === 0) {
-        const key = `${message.guild.id}-${message.author.id}`;
-        if (!this.client.points.has(key)) {
-          this.client.points.set(key, {
-            user: message.author.id, guild: message.guild.id, points: 0, level: 1
-          });
-        }
-
-        const { body: avatar } = await get(member.user.displayAvatarURL.replace(imageUrlRegex, '?size=128'));
-
-        await message.channel.send(new Attachment(await this.profile(message.author, avatar, this.client.points.get(key)), 'profile.png'));
-      } else {
-        const id = args[0];
-
-        const key = `${message.guild.id}-${id}`;
-        if (!this.client.points.has(key)) {
-          this.client.points.set(key, {
-            user: message.author.id, guild: message.guild.id, points: 0, level: 1
-          });
-        }
-        const member = await this.client.fetchUser(id);
-
-        const { body: avatar } = await get(member.user.displayAvatarURL.replace(imageUrlRegex, '?size=128'));
-
-        console.log(member);
-
-        // await message.channel.send(new Attachment(await this.profile(member, avatar, this.client.points.get(key)), 'profile.png'));
-      }
+      await message.channel.send(new Attachment(await this.profile(member, this.client.points.get(key)), `profile-${member.id}.png`));
     }
   }
 
@@ -69,6 +38,7 @@ class Profile extends Social {
     const { level, points } = score;
     const name = member.displayName.length > 20 ? member.displayName.substring(0, 17) + '...' : member.displayName;
     const { body: avatar } = await get(member.user.displayAvatarURL.replace(imageUrlRegex, '?size=128'));
+    
     return new Canvas(400, 180)
     // Create the Blurple rectangle on the right of the image
       .setColor('#7289DA')

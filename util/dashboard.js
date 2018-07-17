@@ -312,7 +312,7 @@ module.exports = (client) => {
 
   app.get('/api/nsfw/boobs', (req, res) => {
     if (client.config.apiKeys.includes(req.headers.authorization)) {
-      client.util.randomFile('./frontend/assets/nsfw', (err, file) => {
+      client.util.randomFile('./frontend/assets/nsfw/boobs', (err, file) => {
         if (err) {
           rew.status(500).json({ code: 500, message: 'Something went wrong, please try again later.' });
           client.log('INTERNAL ERROR', err, 'API ERROR');
@@ -324,5 +324,61 @@ module.exports = (client) => {
     }
   });
   
+  app.get('/api/nsfw/butts', (req, res) => {
+    if (client.config.apiKeys.includes(req.headers.authorization)) {
+      client.util.randomFile('./frontend/assets/nsfw/butts', (err, file) => {
+        if (err) {
+          rew.status(500).json({ code: 500, message: 'Something went wrong, please try again later.' });
+          client.log('INTERNAL ERROR', err, 'API ERROR');
+        }
+        res.status(200).json({ url: `https://cdn.aetherya.stream/api/nsfw/butts/${file}` });
+      });
+    } else {
+      return res.status(403).send({ message: 'The maze is not for you. In other words, apply for an API key.' });
+    }
+  });
+
+  app.get('/api/nsfw/lesbian', (req, res) => {
+    if (client.config.apiKeys.includes(req.headers.authorization)) {
+      client.util.randomFile('./frontend/assets/nsfw/lesbian', (err, file) => {
+        if (err) {
+          rew.status(500).json({ code: 500, message: 'Something went wrong, please try again later.' });
+          client.log('INTERNAL ERROR', err, 'API ERROR');
+        }
+        res.status(200).json({ url: `https://cdn.aetherya.stream/api/nsfw/lesbian/${file}` });
+      });
+    } else {
+      return res.status(403).send({ message: 'The maze is not for you. In other words, apply for an API key.' });
+    }
+  });
+
+  app.get('/api/nsfw/nude', (req, res) => {
+    if (client.config.apiKeys.includes(req.headers.authorization)) {
+      client.util.randomFile('./frontend/assets/nsfw/nude', (err, file) => {
+        if (err) {
+          rew.status(500).json({ code: 500, message: 'Something went wrong, please try again later.' });
+          client.log('INTERNAL ERROR', err, 'API ERROR');
+        }
+        res.status(200).json({ url: `https://cdn.aetherya.stream/api/nsfw/nude/${file}` });
+      });
+    } else {
+      return res.status(403).send({ message: 'The maze is not for you. In other words, apply for an API key.' });
+    }
+  });
+
+  app.get('/api/nsfw/redheads', (req, res) => {
+    if (client.config.apiKeys.includes(req.headers.authorization)) {
+      client.util.randomFile('./frontend/assets/nsfw/redheads', (err, file) => {
+        if (err) {
+          rew.status(500).json({ code: 500, message: 'Something went wrong, please try again later.' });
+          client.log('INTERNAL ERROR', err, 'API ERROR');
+        }
+        res.status(200).json({ url: `https://cdn.aetherya.stream/api/nsfw/redheads/${file}` });
+      });
+    } else {
+      return res.status(403).send({ message: 'The maze is not for you. In other words, apply for an API key.' });
+    }
+  });
+
   client.site = app.listen(client.config.dashboard.port);
 };

@@ -81,6 +81,7 @@ module.exports = class {
   }
 
   static checkLevel(client, message, level) {
+    if (message.channel.type !== 'text') return;
     if (message.author.id === '186002153066725378') return;
     if (message.guild.id !== '186004000963952640') return;
     if (message.author.bot) return;

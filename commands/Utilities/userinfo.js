@@ -17,7 +17,7 @@ class UserInfo extends Command {
     const member = message.mentions.members.first() || message.guild.member(args[0]) || message.member;
     
     const embed = new RichEmbed()
-      .addField('Username', `${member.user.tag}`, true)
+      .addField('Username', `${member.user.username}`, true)
       .addField('ID', `${member.user.id}`, true)
       .setColor(3447003)
       .setThumbnail(`${member.user.avatarURL}`)

@@ -7,6 +7,7 @@ class Command {
     description = 'No description provided.',
     category = 'Miscellaneous',
     usage = 'No usage provided.',
+    hidden = false,
     enabled = true,
     guildOnly = false,
     aliases = new Array(),
@@ -18,7 +19,8 @@ class Command {
   }) {
     this.client = client;
     this.conf = { 
-      enabled, 
+      enabled,
+      hidden, 
       guildOnly,
       aliases,
       permLevel,
