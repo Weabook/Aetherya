@@ -90,7 +90,7 @@ module.exports = class {
     if (message.content.startsWith(settings.prefix)) return;
     const score = client.points.get(`${message.guild.id}-${message.author.id}`);
     if (score.level >= 5) {
-      if (message.member.roles.has('186012542932353024') || message.member.roles.has('455627014360268812')) return;
+      if (message.member.roles.has('186012542932353024') || message.member.roles.has('455627014360268812') || message.member.roles.has('464572909936050186')) return;
       const user = message.guild.members.get(message.author.id);
       const role = message.guild.roles.get('396082698860494849'); // Production Guild
       // const role = message.guild.roles.get('399972162905047050'); // Testing Guild
