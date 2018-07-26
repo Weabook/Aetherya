@@ -21,6 +21,7 @@ class Achievement extends Command {
       if (text.length < 1) return message.channel.send('You must give an achievement description.');
       if (text.length > 22) return message.channel.send('I can only handle a maximum of 22 characters');
       try {
+        this.client.session.requests++;
         await message.channel.send(new Attachment(await this.client.api.achievement((message.mentions.users.first() || message.author).displayAvatarURL, text), 'achievement.png'));
       } catch (error) {
         throw error;
@@ -30,6 +31,7 @@ class Achievement extends Command {
       if (text.length < 1) return message.channel.send('You must give an achievement description.');
       if (text.length > 22) return message.channel.send('I can only handle a maximum of 22 characters');
       try {
+        this.client.session.requests++;
         await message.channel.send(new Attachment(await this.client.api.achievement((message.mentions.users.first() || message.author).displayAvatarURL, text), 'achievement.png'));
       } catch (error) {
         throw error;

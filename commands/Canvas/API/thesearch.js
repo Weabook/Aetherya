@@ -18,6 +18,7 @@ class Thesearch extends Command {
       const text = args.join(' ');
       if (text.length < 1) return message.channel.send('You must supply something for the guy to say.');
       try {
+        this.client.session.requests++;
         await message.channel.send(new Attachment(await this.client.api.theSearch((message.mentions.users.first() || message.author).displayAvatarURL, text), 'achievement.png'));
       } catch (error) {
         throw error;
@@ -26,6 +27,7 @@ class Thesearch extends Command {
       const text = args.slice(1).join(' ');
       if (text.length < 1) return message.channel.send('You must supply something for the guy to say.');
       try {
+        this.client.session.requests++;
         await message.channel.send(new Attachment(await this.client.api.theSearch((message.mentions.users.first() || message.author).displayAvatarURL, text), 'achievement.png'));
       } catch (error) {
         throw error;

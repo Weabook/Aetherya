@@ -16,6 +16,7 @@ class Beautiful extends Command {
 
   async run(message, args, level) {
     try {
+      this.client.session.requests++;
       await message.channel.send(new Attachment(await this.client.api.beautiful((message.mentions.users.first() || message.author).displayAvatarURL), 'beautiful.png'));
     } catch (error) {
       throw error;

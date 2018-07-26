@@ -15,6 +15,7 @@ class Bobross extends Command {
 
   async run(message, args, level) { 
     try {
+      this.client.session.requests++;
       await message.channel.send(new Attachment(await this.client.api.bobRoss(message.mentions.users.first().displayAvatarURL)));
     } catch (error) {
       throw error;

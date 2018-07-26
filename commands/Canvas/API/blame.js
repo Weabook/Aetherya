@@ -15,6 +15,7 @@ class Blame extends Command {
 
   async run(message, args, level) { 
     try {
+      this.client.session.requests++;
       const user = await message.guild.fetchMember(message.mentions.users.first());
       await message.channel.send(new Attachment(await this.client.api.blame(user.displayName), 'blame.png'));
     } catch (error) {

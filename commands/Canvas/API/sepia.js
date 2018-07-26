@@ -15,6 +15,7 @@ class Sepia extends Command {
 
   async run(message, args, level) {
     try {
+      this.client.session.requests++;
       await message.channel.send(new Attachment(await this.client.api.sepia((message.mentions.users.first() || message.author).displayAvatarURL), 'sepia.png'));
     } catch (error) {
       throw error;

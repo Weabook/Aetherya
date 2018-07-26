@@ -60,7 +60,8 @@ class Aetherya extends Client {
 
     this.session = {
       messages: 0,
-      commands: 0
+      commands: 0,
+      requests: 0
     };
   }
 

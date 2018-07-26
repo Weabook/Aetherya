@@ -17,6 +17,7 @@ class Batslap extends Command {
     const slapper = message.author;
     const slapped = message.mentions.users.first(); 
     try {
+      this.client.session.requests++;
       await message.channel.send(new Attachment(await this.client.api.batSlap(slapper.displayAvatarURL, slapped.displayAvatarURL), 'batman.png'));
     } catch (error) {
       throw error;
