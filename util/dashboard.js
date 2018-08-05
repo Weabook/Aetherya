@@ -314,7 +314,7 @@ module.exports = (client) => {
     if (client.config.apiKeys.includes(req.headers.authorization)) {
       client.util.randomFile('./frontend/assets/nsfw/boobs', (err, file) => {
         if (err) {
-          rew.status(500).json({ code: 500, message: 'Something went wrong, please try again later.' });
+          res.status(500).json({ code: 500, message: 'Something went wrong, please try again later.' });
           client.log('INTERNAL ERROR', err, 'API ERROR');
         }
         res.status(200).json({ url: `https://cdn.aetherya.stream/api/nsfw/boobs/${file}` });
@@ -328,7 +328,7 @@ module.exports = (client) => {
     if (client.config.apiKeys.includes(req.headers.authorization)) {
       client.util.randomFile('./frontend/assets/nsfw/butts', (err, file) => {
         if (err) {
-          rew.status(500).json({ code: 500, message: 'Something went wrong, please try again later.' });
+          res.status(500).json({ code: 500, message: 'Something went wrong, please try again later.' });
           client.log('INTERNAL ERROR', err, 'API ERROR');
         }
         res.status(200).json({ url: `https://cdn.aetherya.stream/api/nsfw/butts/${file}` });
@@ -342,7 +342,7 @@ module.exports = (client) => {
     if (client.config.apiKeys.includes(req.headers.authorization)) {
       client.util.randomFile('./frontend/assets/nsfw/lesbian', (err, file) => {
         if (err) {
-          rew.status(500).json({ code: 500, message: 'Something went wrong, please try again later.' });
+          res.status(500).json({ code: 500, message: 'Something went wrong, please try again later.' });
           client.log('INTERNAL ERROR', err, 'API ERROR');
         }
         res.status(200).json({ url: `https://cdn.aetherya.stream/api/nsfw/lesbian/${file}` });
@@ -356,7 +356,7 @@ module.exports = (client) => {
     if (client.config.apiKeys.includes(req.headers.authorization)) {
       client.util.randomFile('./frontend/assets/nsfw/nude', (err, file) => {
         if (err) {
-          rew.status(500).json({ code: 500, message: 'Something went wrong, please try again later.' });
+          res.status(500).json({ code: 500, message: 'Something went wrong, please try again later.' });
           client.log('INTERNAL ERROR', err, 'API ERROR');
         }
         res.status(200).json({ url: `https://cdn.aetherya.stream/api/nsfw/nude/${file}` });
@@ -370,7 +370,7 @@ module.exports = (client) => {
     if (client.config.apiKeys.includes(req.headers.authorization)) {
       client.util.randomFile('./frontend/assets/nsfw/redheads', (err, file) => {
         if (err) {
-          rew.status(500).json({ code: 500, message: 'Something went wrong, please try again later.' });
+          res.status(500).json({ code: 500, message: 'Something went wrong, please try again later.' });
           client.log('INTERNAL ERROR', err, 'API ERROR');
         }
         res.status(200).json({ url: `https://cdn.aetherya.stream/api/nsfw/redheads/${file}` });
