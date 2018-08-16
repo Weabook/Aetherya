@@ -39,6 +39,7 @@
     "fs-nextra": "^0.3.2",
     "hastebin.js": "^0.2.1",
     "helmet": "^3.12.0",
+    "hide-powered-by": "^1.0.0",
     "idiotic-api": "^0.2.7",
     "klaw": "^2.1.1",
     "level-session-store": "^2.1.0",

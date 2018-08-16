@@ -1,10 +1,12 @@
 const url = require('url');
 const path = require('path');
+const hidePoweredBy = require('hide-powered-by');
 
 const Discord = require('discord.js');
 
 const express = require('express');
 const app = express();
+app.use(hidePoweredBy({ setTo: 'NerdOS' }));
 
 const moment = require('moment');
 require('moment-duration-format');

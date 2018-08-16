@@ -31,22 +31,22 @@ class Partner extends Command {
     return embed;
   }
 
-  async appApprove(color, invite, count, author, authorAvatar, timestamp, appNumber) {
+  async appApprove(color, invite, count, reason, author, authorAvatar, timestamp, appNumber) {
     const { RichEmbed } = require('discord.js');
     const embed = new RichEmbed()
       .setAuthor(author, authorAvatar)
-      .setDescription(`**Invite Link:** ${invite}\n**Member Count:** ${count} Members\n**Status:** Approved`)
+      .setDescription(`**Invite Link:** ${invite}\n**Member Count:** ${count} Members\n**Reason:** ${reason}\n**Status:** Approved`)
       .setFooter(`Application ${appNumber}`)
       .setColor(color)
       .setTimestamp(timestamp);
     return embed;
   }
 
-  async appDeny(color, invite, count, author, authorAvatar, timestamp, appNumber) {
+  async appDeny(color, invite, count, reason, author, authorAvatar, timestamp, appNumber) {
     const { RichEmbed } = require('discord.js');
     const embed = new RichEmbed()
       .setAuthor(author, authorAvatar)
-      .setDescription(`**Invite Link:** ${invite}\n**Member Count:** ${count} Members\n**Status:** Denied`)
+      .setDescription(`**Invite Link:** ${invite}\n**Member Count:** ${count} Members\n**Reason:** ${reason}\n**Status:** Denied`)
       .setFooter(`Application ${appNumber}`)
       .setColor(color)
       .setTimestamp(timestamp);
@@ -54,7 +54,7 @@ class Partner extends Command {
   }
 
   async buildPartnerApp(client, invite, count, reason, author) {
-    const setGuild = '186004000963952640';
+    const setGuild = '335951728560046080';
     const settings = client.settings.get(setGuild);
     const appNumber = await this.appNumber(client, this.client.guilds.get(setGuild).channels.find('name', settings.partnerLog));
     const embed = await this.appEmbed('0xd9adfc', invite, count, reason, author, new Date(), appNumber);
