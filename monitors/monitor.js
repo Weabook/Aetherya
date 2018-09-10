@@ -89,8 +89,9 @@ module.exports = class {
     const settings = client.settings.get(message.guild.id);
     if (message.content.startsWith(settings.prefix)) return;
     const score = client.points.get(`${message.guild.id}-${message.author.id}`);
-    if (score.level >= 5) {
-      if (message.member.roles.has('455627014360268812'|| '464572909936050186' || '484327083993202691' || '439468402982256641' || '465581797842092032' || '456940885784133643' || '186012542932353024' || '361950786521006090' || '346792259209134120' || '396082698860494849')) return;
+    if (score.level >= 5) {      
+      if (message.member.roles.has('455627014360268812') || message.member.roles.has('464572909936050186') || message.member.roles.has('484327083993202691') || message.member.roles.has('439468402982256641') || message.member.roles.has('465581797842092032') || message.member.roles.has('456940885784133643') || message.member.roles.has('186012542932353024') || message.member.roles.has('361950786521006090') || message.member.roles.has('346792259209134120') || message.member.roles.has('396082698860494849')) return;
+
       const user = message.guild.members.get(message.author.id);
       const role = message.guild.roles.get('396082698860494849'); // Production Guild
       // const role = message.guild.roles.get('399972162905047050'); // Testing Guild
