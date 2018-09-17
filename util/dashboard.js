@@ -20,6 +20,9 @@ const helmet = require('helmet');
 
 const md = require('marked');
 
+const fetch = require('node-fetch');
+const fs = require('fs');
+
 module.exports = (client) => {
   const dataDir = path.resolve(`${process.cwd()}${path.sep}frontend`);
   const templateDir = path.resolve(`${dataDir}${path.sep}templates`);
@@ -282,6 +285,24 @@ module.exports = (client) => {
     if (!isManaged && !req.session.isAdmin) res.redirect('/');
     client.settings.delete(guild.id);
     res.redirect('/dashboard/'+req.params.guildID);
+  });
+
+  app.get('/api/images/upload', (req, res) => {
+    if (client.config.apiKeys.includes(req.headers.authorization)) {
+      const { url, identifier } = req.headers;
+      const { body: buffer } = fetch(url);
+
+      const REGEX_URL = /\.(jpe?g|png|webp|gif|txt|js)$/;
+      const g = REGEX_URL.exec(url);
+
+      const file = `${identifier}${g[0]}`;
+      const upload = fs.writeFileSync(`/var/www/cdn/uploads/${file}`, buffer);
+      return res.status(200).json({
+        url: `https://cdn.aetherya.stream/uploads/${file}`
+      });
+    } else {
+      return res.status(403).send({ message: 'The maze is not for you. In other words, apply for an API key.' });
+    }
   });
 
   app.get('/api/kpop/yezi', (req, res) => {
