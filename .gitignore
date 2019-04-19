@@ -1,0 +1,17 @@
+rowboat-*.json
+config.yaml
+*.pyc
+.venv/
+*.log
+.data
+.redis
+frontend/node_modules
+.idea
+.vscode
+*.aof
+src/disco-py
+src/peewee
+src/pip-delete-this-directory.py
+rowboat/plugins/levels.py
+test.py
+img
